@@ -14,13 +14,13 @@
   when: item not in gem_installedgems.stdout
   tags: gem
 
-- name: Get all currently installed and outdated gem
+- name: Get all currently globally installed and outdated gem
   ansible.builtin.shell: "set -o pipefail && gem outdated | sed 's/([^)]*)//g;s/  / /g' | sed 's/ //g'"
   register: gem_outdatedgems
   changed_when: false
   tags: gem
 
-- name: Update all currently installed and outdated gem
+- name: Update all currently  globally installed and outdated gem
   community.general.gem:
     name: "{{ item }}"
     state: latest
