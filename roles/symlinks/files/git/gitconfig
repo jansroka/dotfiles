@@ -62,7 +62,7 @@
 	program = /usr/local/bin/gpg
 [tag]
 	gpgSign = true
-[credential "https://dev.azure.com"]
-	useHttpPath = true
 [push]
 	autoSetupRemote = true
+[credential "https://dev.azure.com"]
+	useHttpPath = true
