@@ -17,7 +17,7 @@ export LSCOLORS=ExFxBxDxCxegedabagacad
 
 # brew related
 export HOMEBREW_CASK_OPTS="--appdir=/Applications --fontdir=/Library/Fonts --qlplugindir=/Library/QuickLook"
-export HOMEBREW_NO_ANALYTICS=0
+export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
