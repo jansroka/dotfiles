@@ -1,11 +1,12 @@
 # dotfiles
 
-These are my dotfiles for OSX Sonoma. There are many like them, but these ones are mine.
+These are my dotfiles for OSX Sequoia. There are many like them, but these ones are mine.
 
 Previous versions of this repo (archived) can be found here:
 
 - [https://github.com/jansroka/dotfiles-osx-monterey (OSX 12)](https://github.com/jansroka/dotfiles-osx-monterey)
 - [https://github.com/jansroka/dotfiles-osx-ventura (OSX 13)](https://github.com/jansroka/dotfiles-osx-ventura)
+- [https://github.com/jansroka/dotfiles-osx-sonoma (OSX 14)](https://github.com/jansroka/dotfiles-osx-sonoma)
 
 ## Features
 
@@ -19,8 +20,6 @@ Previous versions of this repo (archived) can be found here:
   - configures homebrew includings casks & Microsoft Office
 - dock
   - configures your OSX dock
-- docker
-  - purges dangling and unnecessary images, containers, images
 - duti
   - sets default app associations via `duti`
 - gem
@@ -37,8 +36,6 @@ Previous versions of this repo (archived) can be found here:
   - installs the global npm packages that I use
 - osx
   - sets lots of defaults for OSX and OSX apps
-- pip
-  - installs and maintains pip modules
 - sublime-text
   - installs sublime text via brew cask & symlinks preferences
 - symlinks
