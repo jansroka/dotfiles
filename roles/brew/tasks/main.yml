@@ -58,11 +58,13 @@
 - name: Upgrade all brew packages
   community.general.homebrew:
     upgrade_all: true
+  ignore_errors: true
   tags: brew
 
 - name: Update & upgrade casks
   community.general.homebrew_cask:
     upgrade_all: true
+  ignore_errors: true
   tags: brew
 
 - name: Cleanup brew
