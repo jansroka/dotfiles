@@ -67,7 +67,6 @@ brew_cask_packages:
   - docker
   - dupeguru
   - element
-  - fawkes
   - firefox
   - fujitsu-scansnap-home
   - git-credential-manager-core
