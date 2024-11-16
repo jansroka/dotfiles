@@ -105,7 +105,6 @@ brew_cask_packages:
   - virtualbox
   - visual-studio-code
   - vlc
-  - xmind
   - zoom
 
 brew_cask_ql_packages:
