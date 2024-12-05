@@ -101,7 +101,7 @@ alias d="docker"
 # and don't delete images that match certain terms
 # We use a function here, not an alias, since that simplifies character escapes
 dcd() { echo "### running docker compose down" && docker compose down --remove-orphans \
-		&& echo "### pruning docker images" && docker images -a | grep -v redis | grep -v chrome | grep -v postgres | grep -v IMAGE | awk '{print $3}' | xargs docker rmi \
+		&& echo "### pruning docker images" && docker images -a | grep -v chrome | grep -v postgres | grep -v IMAGE | awk '{print $3}' | xargs docker rmi \
 		&& echo "### pruning docker volumes" && docker volume ls | grep -v daito | grep -v 'VOLUME NAME' | awk '{print $2}' | xargs docker volume rm \
 		&& echo "### pruning docker containers" && docker container prune -f \
 		&& echo "### pruning docker networks" && docker network prune -f }
