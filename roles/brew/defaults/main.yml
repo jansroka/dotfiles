@@ -74,6 +74,7 @@ brew_cask_packages:
   - google-chrome
   - hazel
   - iterm2
+  - keka  # open source alternative to the unarchiver
   - kindle
   - little-snitch
   - maccy
@@ -97,7 +98,6 @@ brew_cask_packages:
   - superduper
   - tabula
   - teamviewer
-  - the-unarchiver
   - thunderbird
   - timing
   - transmission
