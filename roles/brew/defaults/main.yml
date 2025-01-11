@@ -101,8 +101,8 @@ brew_cask_packages:
   - thunderbird
   - timing
   - transmission
+  - utm
   - veracrypt
-  - virtualbox
   - visual-studio-code
   - vlc
   - zoom
