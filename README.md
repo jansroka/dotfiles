@@ -51,7 +51,7 @@ You’ll need the following dependencies before getting started.
 
 At the time of writing it’s possible to get all three like so:
 
-```
+``` shell
 xcode-select --install
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew install ansible
@@ -63,7 +63,7 @@ brew install ansible
 
 Run this:
 
-```
+``` shell
 curl -L https://raw.github.com/jansroka/dotfiles/master/bin/setup.sh | bash
 ```
 
@@ -73,7 +73,7 @@ This sets up a few things and then runs `ansible-playbook -i hosts dotfiles.yml 
 
 Run this:
 
-```
+``` shell
 time ansible-playbook dotfiles.yml -v --ask-become-pass
 ```
 
@@ -83,7 +83,7 @@ This will install things if they are not installed yet. It will also update thin
 
 Run this:
 
-```
+``` shell
 time ansible-playbook maintenance.yml -v --ask-become-pass
 ```
 
@@ -93,13 +93,13 @@ This runs different tasks than the `dotfiles.yml` playbook. It does stuff like s
 
 I am using `pre-commit` in this repo to lint before commits. Install it via brew using
 
-```
+``` shell
 brew install pre-commit
 ```
 
 ## Contributing
 
-- Fork it ( https://github.com/jansroka/dotfiles/fork)
+- Fork it ( <https://github.com/jansroka/dotfiles/fork>)
 - Create your feature branch (`git checkout -b my-new-feature`)
 - Commit your changes (`git commit -am 'Add some feature'`)
 - Push to the branch (`git push origin my-new-feature`)
@@ -107,13 +107,13 @@ brew install pre-commit
 
 ## Inspiration
 
-- https://github.com/soehlert/osx-ansible
-- https://github.com/geerlingguy/mac-dev-playbook/
-- https://github.com/geerlingguy/ansible-collection-mac
-- https://github.com/kinglouie/ansible-role-macos
-- https://github.com/fgimian/macbuild-ansible
-- https://github.com/elnappo/dotfiles/
-- https://github.com/adamchainz/mac-ansible
-- https://github.com/TalkingQuickly/ansible-osx-setup
-- https://github.com/jcf/ansible-dotfiles
-- https://github.com/frdmn/dotfiles
+- <https://github.com/soehlert/osx-ansible>
+- <https://github.com/geerlingguy/mac-dev-playbook/>
+- <https://github.com/geerlingguy/ansible-collection-mac>
+- <https://github.com/kinglouie/ansible-role-macos>
+- <https://github.com/fgimian/macbuild-ansible>
+- <https://github.com/elnappo/dotfiles/>
+- <https://github.com/adamchainz/mac-ansible>
+- <https://github.com/TalkingQuickly/ansible-osx-setup>
+- <https://github.com/jcf/ansible-dotfiles>
+- <https://github.com/frdmn/dotfiles>
