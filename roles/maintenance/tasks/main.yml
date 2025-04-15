@@ -64,12 +64,6 @@
   become: true
   tags: maintenance
 
-# Run periodics
-- name: Run periodic scripts
-  ansible.builtin.command: sudo periodic daily weekly monthly
-  become: true
-  tags: maintenance
-
 # - name: Delete all .DS_Store files
 #   ansible.builtin.command: find ~/ -name ".DS_Store" -exec rm {} \;
 #   become: true
