@@ -2,6 +2,9 @@
 	"bootstrapped": true,
 	"in_process_packages":
 	[
+		"BracketHighlighter",
+		"ColorHelper",
+		"SublimeLinter",
 	],
 	"installed_packages":
 	[
