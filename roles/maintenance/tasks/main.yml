@@ -15,7 +15,7 @@
 - name: Run 'diskutil resetuserpermissions / $(id -u)'
   ansible.builtin.command: "diskutil resetuserpermissions / {{ maintenance_userid.stdout }}"
   become: true
-  tags: maintenance
+  tags: maintenance, resetuserpermissions
 
 # Check disk
 # Get list with 'diskutil list'
