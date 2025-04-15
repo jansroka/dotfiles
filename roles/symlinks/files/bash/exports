@@ -88,8 +88,9 @@ export PKG_CONFIG_PATH="$(brew --prefix)/opt/libpq/lib/pkgconfig"
 # Fix Ansible
 export ANSIBLE_PYTHON_INTERPRETER="$(which python)"
 
-# Add `~/bin` to the `$PATH`
+# Add `~/bin` and `.bin` to the `$PATH`
 export PATH=${HOME}/bin:${PATH}
+export PATH=${HOME}/.bin:${PATH}
 
 # node
 # Enable persistent REPL history for `node`.
