@@ -54,6 +54,7 @@ brew_packages:
   - unbound
   - wget
   - wifi-password
+  - yamllint
   - yq
   - zlib
   - zsh
