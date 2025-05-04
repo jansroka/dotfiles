@@ -38,6 +38,7 @@ brew_packages:
   - nvm
   - openssh
   - openssl@3 # rbenv/ruby requirement
+  - pipx
   - pre-commit
   - pyenv
   - python@3.9
