@@ -7,6 +7,7 @@ brew_taps:
 
 brew_packages:
   - ansible
+  - ansible-lint
   - autoconf
   - automake
   - awscli
