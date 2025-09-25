@@ -95,28 +95,8 @@ fi
 # Generic
 alias hashes='echo "###############################"'
 
-# Docker
-alias d="docker"
-# reset docker, clean everything, but don't delete the build cache
-# and don't delete images that match certain terms
-# We use a function here, not an alias, since that simplifies character escapes
-dcd() { echo "### running docker compose down" && docker compose down --remove-orphans \
-		&& echo "### pruning docker images" && docker images -a | grep -v chrome | grep -v postgres | grep -v IMAGE | awk '{print $3}' | xargs docker rmi \
-		&& echo "### pruning docker volumes" && docker volume ls | grep -v daito | grep -v 'VOLUME NAME' | awk '{print $2}' | xargs docker volume rm \
-		&& echo "### pruning docker containers" && docker container prune -f \
-		&& echo "### pruning docker networks" && docker network prune -f }
-alias dcb="time dcd && time docker compose build"
-alias dce="docker compose exec"
-alias dcr="docker compose run -it --rm"
-alias dcu="docker compose up"
-alias dcub="time dcd && time docker compose up --build --force-recreate --remove-orphans"
-
-# Daito
-alias daitoattach='d attach web'
-alias daitobash='hashes && echo "STARTING \"bash\" FOR DAITO" && hashes && echo " " && dcr web bash'
-alias daitoconsole='dcr web rails c'
-alias daitopsql='dcr postgres psql "postgresql://daito:daito@postgres/daito_development"'
-alias daitotest='docker compose -f docker-compose.test.yml run -it --rm web ./scripts/fluffy.sh'
+# Daito Docker script sourcing
+source ~/Code/Daito/app/scripts/docker-dev-toolkit.sh
 
 # vscode
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron'
