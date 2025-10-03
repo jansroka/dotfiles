@@ -34,7 +34,6 @@ brew_packages:
   - mas
   - nano
   - nmap
-  - node
   - nvm
   - openssh
   - openssl@3 # rbenv/ruby requirement
