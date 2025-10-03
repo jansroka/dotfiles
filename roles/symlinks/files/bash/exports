@@ -16,8 +16,7 @@ fi
 export LSCOLORS=ExFxBxDxCxegedabagacad
 
 # node
-# we set this first so that NVM can modify the PATH as needed
-# ...and nvm gets precedence over any other node installations (e.g. brew)
+# NVM is now initialized in .zshrc to ensure proper PATH ordering
 # Enable persistent REPL history for `node`.
 export NODE_REPL_HISTORY=~/.node_history;
 # Allow 32³ entries; the default is 1000.
@@ -25,9 +24,6 @@ export NODE_REPL_HISTORY_SIZE='32768';
 # Use sloppy mode by default, matching web browsers.
 export NODE_REPL_MODE='sloppy';
 export PATH="$PATH:./node_modules/.bin"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"  # This loads nvm
 
 # brew related
 export HOMEBREW_CASK_OPTS="--appdir=/Applications --fontdir=/Library/Fonts --qlplugindir=/Library/QuickLook"

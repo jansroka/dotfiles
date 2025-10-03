@@ -16,6 +16,11 @@ HEROKU_AC_ZSH_SETUP_PATH=/Users/jan/Library/Caches/heroku/autocomplete/zsh_setup
 # rbenv init
 eval "$(rbenv init -)"
 
+# NVM initialization - MUST come before Homebrew is added to PATH
+export NVM_DIR="$HOME/.nvm"
+[ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"
+[ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"
+
 # Automatically use nvm when entering directories with .nvmrc
 autoload -U add-zsh-hook
 load-nvmrc() {
