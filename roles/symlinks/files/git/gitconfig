@@ -59,7 +59,7 @@
 	process = git-lfs filter-process
 
 [gpg]
-	program = /usr/local/bin/gpg
+	program = gpg
 [tag]
 	gpgSign = true
 [push]
