@@ -13,11 +13,12 @@ eval "$(rbenv init -)"
 # NVM lazy initialization - defer until first use
 export NVM_DIR="$HOME/.nvm"
 _nvm_loaded=0
+_BREW_PREFIX=$(brew --prefix)
 
 _init_nvm() {
   if [ $_nvm_loaded -eq 0 ]; then
-    [ -s "$(brew --prefix)/opt/nvm/nvm.sh" ] && \. "$(brew --prefix)/opt/nvm/nvm.sh"
-    [ -s "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$(brew --prefix)/opt/nvm/etc/bash_completion.d/nvm"
+    [ -s "$_BREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$_BREW_PREFIX/opt/nvm/nvm.sh"
+    [ -s "$_BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$_BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
     _nvm_loaded=1
   fi
 }
@@ -52,9 +53,6 @@ bm() { uvx --python python3.13 basic-memory "$@"; }
 
 # Source bash aliases for compatibility
 [ -f ~/.bash_aliases ] && source ~/.bash_aliases
-
-# Simple prompt
-PS1='$ '
 
 # Load acme.sh environment if it exists
 if [ -f ~/.acme.sh/acme.sh.env ]; then
