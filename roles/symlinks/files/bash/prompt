@@ -5,6 +5,9 @@ if [ -n "${ZSH_VERSION}" ]; then
 	# We are in zsh
 	export PS1="%* %F{green}%~%f $ "
 elif [ -n "${BASH_VERSION}" ]; then
-	# We are in bash
+	# We are in bash - match zsh style: time and directory in green
 	export PS1="\t \[\033[32m\]\w\[\033[00m\] $ "
+else
+	# Not in bash or zsh
+	echo "We are not in a bash"
 fi
