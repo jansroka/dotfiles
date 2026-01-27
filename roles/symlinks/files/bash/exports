@@ -31,7 +31,6 @@ export NODE_REPL_HISTORY=~/.node_history;
 export NODE_REPL_HISTORY_SIZE='32768';
 # Use sloppy mode by default, matching web browsers.
 export NODE_REPL_MODE='sloppy';
-export PATH="$PATH:./node_modules/.bin"
 
 # brew related
 export HOMEBREW_CASK_OPTS="--appdir=/Applications --fontdir=/Library/Fonts --qlplugindir=/Library/QuickLook"
@@ -89,8 +88,8 @@ export CPPFLAGS="-I$_BREW_OPT/readline/include $CPPFLAGS"
 export PKG_CONFIG_PATH="$_BREW_OPT/readline/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # ruby  - openssl needs this
-export LDFLAGS="-L$_BREW_OPT/openssl@1.1/lib $LDFLAGS"
-export CPPFLAGS="-I$_BREW_OPT/openssl@1.1/include $CPPFLAGS"
+export LDFLAGS="-L$_BREW_OPT/openssl@1.1/lib:$LDFLAGS"
+export CPPFLAGS="-I$_BREW_OPT/openssl@1.1/include:$CPPFLAGS"
 export PKG_CONFIG_PATH="$_BREW_OPT/openssl@1.1/lib/pkgconfig:$PKG_CONFIG_PATH"
 export PATH="$_BREW_OPT/openssl@1.1/bin:$PATH"
 
@@ -103,14 +102,14 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # postgres
 export PATH="$_BREW_OPT/postgresql@15/bin:$PATH"
-export LDFLAGS="-L$_BREW_OPT/postgresql@15/lib $LDFLAGS"
-export CPPFLAGS="-I$_BREW_OPT/postgresql@15/include $CPPFLAGS"
-export PKG_CONFIG_PATH="$_BREW_OPT/postgresql@15/lib/pkgconfig"
+export LDFLAGS="-L$_BREW_OPT/postgresql@15/lib:$LDFLAGS"
+export CPPFLAGS="-I$_BREW_OPT/postgresql@15/include:$CPPFLAGS"
+export PKG_CONFIG_PATH="$_BREW_OPT/postgresql@15/lib/pkgconfig:$PKG_CONFIG_PATH"
 # libpq
 export PATH="$_BREW_OPT/libpq/bin:$PATH"
-export LDFLAGS="-L$_BREW_OPT/libpq/lib"
-export CPPFLAGS="-I$_BREW_OPT/libpq/include"
-export PKG_CONFIG_PATH="$_BREW_OPT/libpq/lib/pkgconfig"
+export LDFLAGS="-L$_BREW_OPT/libpq/lib:$LDFLAGS"
+export CPPFLAGS="-I$_BREW_OPT/libpq/include:$CPPFLAGS"
+export PKG_CONFIG_PATH="$_BREW_OPT/libpq/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # Fix Ansible
 export ANSIBLE_PYTHON_INTERPRETER="$(which python)"
@@ -118,13 +117,6 @@ export ANSIBLE_PYTHON_INTERPRETER="$(which python)"
 # Add `~/bin` and `.bin` to the `$PATH`
 export PATH=${HOME}/bin:${PATH}
 export PATH=${HOME}/.bin:${PATH}
-
-# remove duplicate PATH entries (commented out as it causes hangs)
-# and finally export one last time
-# export PATH=$(echo "$PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++{if (NR > 1) printf ORS; printf $a[$1]}')
-
-# dump your path like this
-# echo $PATH | tr ':' '\n'. | sort
 
 # Remove annoying warning that I should switch to zsh
 # https://support.apple.com/en-us/HT208050

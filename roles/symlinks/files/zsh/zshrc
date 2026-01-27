@@ -25,7 +25,13 @@ rbenv() {
 # NVM lazy initialization - defer until first use
 export NVM_DIR="$HOME/.nvm"
 _nvm_loaded=0
-_BREW_PREFIX=$(brew --prefix)
+
+# Determine brew prefix without calling brew directly
+if [ -d /opt/homebrew ]; then
+  _BREW_PREFIX=/opt/homebrew
+else
+  _BREW_PREFIX=/usr/local
+fi
 
 _init_nvm() {
   if [ $_nvm_loaded -eq 0 ]; then
@@ -70,3 +76,12 @@ bm() { uvx --python python3.13 basic-memory "$@"; }
 if [ -f ~/.acme.sh/acme.sh.env ]; then
   . ~/.acme.sh/acme.sh.env
 fi
+
+# Initialize NVM eagerly for node availability
+if [ -d "$_BREW_PREFIX/opt/nvm" ]; then
+  [ -s "$_BREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$_BREW_PREFIX/opt/nvm/nvm.sh"
+  [ -s "$_BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$_BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
+fi
+
+# Deduplicate PATH entries (must be done after all PATH modifications)
+export PATH="${(j/:/)${(@u)${(s/:/)PATH}}}"
