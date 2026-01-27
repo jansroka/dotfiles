@@ -86,7 +86,7 @@ alias gcm='git checkout main'
 alias gc='git checkout'
 
 # Set these aliases only in zsh
-if [ -z ${BASH_VERSION} ]; then
+if [ -z "${BASH_VERSION}" ]; then
 	# $BASH is not set, therefore we are probably in a zsh
 	# echo "not in a bash" > /dev/null
     alias history='history -i'
@@ -94,9 +94,6 @@ fi
 
 # Generic
 alias hashes='echo "###############################"'
-
-# Daito Docker script sourcing
-source ~/Code/Daito/app/scripts/docker-dev-toolkit.sh
 
 # vscode
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron'

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Source: https://code.mendhak.com/simple-bash-prompt-for-developers-ps1-git/, accessed 2023-08-09
 
 function parse_git_dirty {
@@ -9,7 +11,7 @@ function parse_git_branch {
 
 
 # Only run this if we are in a bash shell, not in a zsh
-if [ -z ${BASH_VERSION} ]; then
+if [ -z "${BASH_VERSION}" ]; then
 	# $BASH is not set, therefore we are probably in a csh
 	# echo "not in a bash"
 	export PS1=""
