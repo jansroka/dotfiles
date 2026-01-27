@@ -23,8 +23,19 @@ else
 	shopt -s cdspell
 fi
 
-# init rbenv for ruby
-eval "$(rbenv init -)"
+# rbenv lazy initialization
+_rbenv_loaded=0
 
-# needed for pyenv
-eval "$(pyenv init -)"
+_init_rbenv() {
+  if [ $_rbenv_loaded -eq 0 ]; then
+    eval "$(rbenv init -)"
+    _rbenv_loaded=1
+  fi
+}
+
+rbenv() {
+  _init_rbenv
+  command rbenv "$@"
+}
+
+# pyenv is already initialized in exports via pyenv init --path

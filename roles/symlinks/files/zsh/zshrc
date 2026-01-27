@@ -7,8 +7,20 @@ for file in ~/.{exports,aliases,prompt}; do
 done;
 unset file;
 
-# rbenv init
-eval "$(rbenv init -)"
+# rbenv lazy initialization
+_rbenv_loaded=0
+
+_init_rbenv() {
+  if [ $_rbenv_loaded -eq 0 ]; then
+    eval "$(rbenv init -)"
+    _rbenv_loaded=1
+  fi
+}
+
+rbenv() {
+  _init_rbenv
+  command rbenv "$@"
+}
 
 # NVM lazy initialization - defer until first use
 export NVM_DIR="$HOME/.nvm"

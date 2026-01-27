@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 # Cache brew prefix to avoid multiple subshell calls
+# NOTE: brew --prefix can hang, so we'll initialize this lazily if needed
 # shellcheck disable=SC2155
-export _BREW_PREFIX=$(brew --prefix)
+# export _BREW_PREFIX=$(brew --prefix)
 
 # Make sure pyenv is initialized first for PATH ordering
-eval "$(pyenv init --path)"
+# eval "$(pyenv init --path)"
 
 # show current dir in iTerm tab title
 # source: https://gist.github.com/phette23/5270658
@@ -38,10 +39,14 @@ export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_NO_INSECURE_REDIRECT=1
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
-# Use cached brew prefix
-export PATH="$_BREW_PREFIX/bin:$_BREW_PREFIX/sbin:$PATH"
-# path for Homebrew coreutils
-export PATH="$_BREW_PREFIX/opt/coreutils/libexec/gnubin:${PATH}"
+# Add Homebrew paths (using standard locations to avoid expensive brew --prefix calls)
+if [ -d /opt/homebrew ]; then
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+  export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:${PATH}"
+else
+  export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+  export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
+fi
 
 # Make nano the default editor.
 export EDITOR='nano';
@@ -61,45 +66,51 @@ export LC_CTYPE=en_US.UTF-8;
 # Don’t clear the screen after quitting a manual page.
 export MANPAGER='less -X';
 
-# ruby
+# ruby - Use standard Homebrew locations to avoid hanging brew --prefix calls
 export optflags="-Wno-error=implicit-function-declaration"
 export CFLAGS="-Wno-error=implicit-function-declaration"
-export LDFLAGS="-L$_BREW_PREFIX/opt/libffi/lib -L$_BREW_PREFIX/opt/jemalloc/lib $LDFLAGS"
-export CPPFLAGS="-I$_BREW_PREFIX/opt/libffi/include -I$_BREW_PREFIX/opt/jemalloc/include $CPPFLAGS"
-export PKG_CONFIG_PATH="$_BREW_PREFIX/opt/libffi/lib/pkgconfig:$PKG_CONFIG_PATH"
-export CONFIGURE_OPTS="--with-openssl-dir=$_BREW_PREFIX/opt/openssl@3"
+if [ -d /opt/homebrew ]; then
+  _BREW_OPT=/opt/homebrew/opt
+else
+  _BREW_OPT=/usr/local/opt
+fi
+export LDFLAGS="-L$_BREW_OPT/libffi/lib -L$_BREW_OPT/jemalloc/lib $LDFLAGS"
+export CPPFLAGS="-I$_BREW_OPT/libffi/include -I$_BREW_OPT/jemalloc/include $CPPFLAGS"
+export PKG_CONFIG_PATH="$_BREW_OPT/libffi/lib/pkgconfig:$PKG_CONFIG_PATH"
+export CONFIGURE_OPTS="--with-openssl-dir=$_BREW_OPT/openssl@3"
 
 # ruby-build
 # Since we are using ruby 3.1 or higher we need to use openssl@3
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$_BREW_PREFIX/opt/openssl@3 --with-readline-dir=$_BREW_PREFIX/opt/readline --with-libyaml-dir=$_BREW_PREFIX/opt/libyaml --with-zlib-dir=$_BREW_PREFIX/opt/zlib"
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$_BREW_OPT/openssl@3 --with-readline-dir=$_BREW_OPT/readline --with-libyaml-dir=$_BREW_OPT/libyaml --with-zlib-dir=$_BREW_OPT/zlib"
 
 # ruby - readline needs this
-export LDFLAGS="-L$_BREW_PREFIX/opt/readline/lib $LDFLAGS"
-export CPPFLAGS="-I$_BREW_PREFIX/opt/readline/include $CPPFLAGS"
-export PKG_CONFIG_PATH="$_BREW_PREFIX/opt/readline/lib/pkgconfig:$PKG_CONFIG_PATH"
+export LDFLAGS="-L$_BREW_OPT/readline/lib $LDFLAGS"
+export CPPFLAGS="-I$_BREW_OPT/readline/include $CPPFLAGS"
+export PKG_CONFIG_PATH="$_BREW_OPT/readline/lib/pkgconfig:$PKG_CONFIG_PATH"
 
 # ruby  - openssl needs this
-export LDFLAGS="-L$_BREW_PREFIX/opt/openssl@1.1/lib $LDFLAGS"
-export CPPFLAGS="-I$_BREW_PREFIX/opt/openssl@1.1/include $CPPFLAGS"
-export PKG_CONFIG_PATH="$_BREW_PREFIX/opt/openssl@1.1/lib/pkgconfig:$PKG_CONFIG_PATH"
-export PATH="$_BREW_PREFIX/opt/openssl@1.1/bin:$PATH"
+export LDFLAGS="-L$_BREW_OPT/openssl@1.1/lib $LDFLAGS"
+export CPPFLAGS="-I$_BREW_OPT/openssl@1.1/include $CPPFLAGS"
+export PKG_CONFIG_PATH="$_BREW_OPT/openssl@1.1/lib/pkgconfig:$PKG_CONFIG_PATH"
+export PATH="$_BREW_OPT/openssl@1.1/bin:$PATH"
 
 #pyenv for python
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-eval "$(pyenv init --path)"
+# NOTE: pyenv init --path hangs on this system, disabled for now
+# eval "$(pyenv init --path)"
 
 # postgres
-export PATH="$_BREW_PREFIX/opt/postgresql@15/bin:$PATH"
-export LDFLAGS="-L$_BREW_PREFIX/opt/postgresql@15/lib $LDFLAGS"
-export CPPFLAGS="-I$_BREW_PREFIX/opt/postgresql@15/include $CPPFLAGS"
-export PKG_CONFIG_PATH="$_BREW_PREFIX/opt/postgresql@15/lib/pkgconfig"
-# libq
-export PATH="$_BREW_PREFIX/opt/libpq/bin:$PATH"
-export LDFLAGS="-L$_BREW_PREFIX/opt/libpq/lib"
-export CPPFLAGS="-I$_BREW_PREFIX/opt/libpq/include"
-export PKG_CONFIG_PATH="$_BREW_PREFIX/opt/libpq/lib/pkgconfig"
+export PATH="$_BREW_OPT/postgresql@15/bin:$PATH"
+export LDFLAGS="-L$_BREW_OPT/postgresql@15/lib $LDFLAGS"
+export CPPFLAGS="-I$_BREW_OPT/postgresql@15/include $CPPFLAGS"
+export PKG_CONFIG_PATH="$_BREW_OPT/postgresql@15/lib/pkgconfig"
+# libpq
+export PATH="$_BREW_OPT/libpq/bin:$PATH"
+export LDFLAGS="-L$_BREW_OPT/libpq/lib"
+export CPPFLAGS="-I$_BREW_OPT/libpq/include"
+export PKG_CONFIG_PATH="$_BREW_OPT/libpq/lib/pkgconfig"
 
 # Fix Ansible
 export ANSIBLE_PYTHON_INTERPRETER="$(which python)"
