@@ -64,11 +64,11 @@ export CFLAGS="-Wno-error=implicit-function-declaration"
 export LDFLAGS="-L$_BREW_PREFIX/opt/libffi/lib -L$_BREW_PREFIX/opt/jemalloc/lib $LDFLAGS"
 export CPPFLAGS="-I$_BREW_PREFIX/opt/libffi/include -I$_BREW_PREFIX/opt/jemalloc/include $CPPFLAGS"
 export PKG_CONFIG_PATH="$_BREW_PREFIX/opt/libffi/lib/pkgconfig:$PKG_CONFIG_PATH"
-export CONFIGURE_OPTS="--with-openssl-dir=$($_BREW_PREFIX openssl@3)"
+export CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
 
 # ruby-build
 # Since we are using ruby 3.1 or higher we need to use openssl@3
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$($_BREW_PREFIX openssl@3) --with-readline-dir=$($_BREW_PREFIX readline) --with-libyaml-dir=$($_BREW_PREFIX libyaml) --with-zlib-dir=$($_BREW_PREFIX zlib)"
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3) --with-readline-dir=$(brew --prefix readline) --with-libyaml-dir=$(brew --prefix libyaml) --with-zlib-dir=$(brew --prefix zlib)"
 
 # ruby - readline needs this
 export LDFLAGS="-L$_BREW_PREFIX/opt/readline/lib $LDFLAGS"
@@ -105,9 +105,9 @@ export ANSIBLE_PYTHON_INTERPRETER="$(which python)"
 export PATH=${HOME}/bin:${PATH}
 export PATH=${HOME}/.bin:${PATH}
 
-# remove duplicate PATH entries
+# remove duplicate PATH entries (commented out as it causes hangs)
 # and finally export one last time
-export PATH=$(echo "$PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++{if (NR > 1) printf ORS; printf $a[$1]}')
+# export PATH=$(echo "$PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++{if (NR > 1) printf ORS; printf $a[$1]}')
 
 # dump your path like this
 # echo $PATH | tr ':' '\n'. | sort
@@ -117,7 +117,10 @@ export PATH=$(echo "$PATH" | awk -v RS=':' -v ORS=":" '!a[$1]++{if (NR > 1) prin
 export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # Needed for GPG and e.g. signing commits
-export GPG_TTY=$(tty)
+# Only set if in an interactive terminal
+if [[ -t 0 ]]; then
+  export GPG_TTY=$(tty)
+fi
 
 # format `time` output in zsh
 export TIMEFMT=$'\nTIME NEEDED:\nreal\t%E\nuser\t%U\nsys\t%S'
