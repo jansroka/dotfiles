@@ -7,6 +7,7 @@ Previous versions of this repo (archived) can be found here:
 - [https://github.com/jansroka/dotfiles-osx-monterey (OSX 12)](https://github.com/jansroka/dotfiles-osx-monterey)
 - [https://github.com/jansroka/dotfiles-osx-ventura (OSX 13)](https://github.com/jansroka/dotfiles-osx-ventura)
 - [https://github.com/jansroka/dotfiles-osx-sonoma (OSX 14)](https://github.com/jansroka/dotfiles-osx-sonoma)
+- [https://github.com/jansroka/dotfiles-osx-sequoia (OSX 15)](https://github.com/jansroka/dotfiles-osx-sequoia)
 
 ## Features
 
