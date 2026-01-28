@@ -25,6 +25,10 @@
 |----------|-------|----------|--------|
 | Deprecated Syntax | Ansible `with_items` deprecated | Migrated to modern `loop` syntax (gem, npm, sublimetext, osx, duti) | ✅ Complete |
 | YAML Formatting | Inconsistent file extensions (.yaml vs .yml) | Standardized duti handlers to .yml | ✅ Complete |
+| Shell | NVM eager loading defeats lazy initialization | Removed duplicate NVM init at EOF, kept lazy-load only | ✅ Complete |
+| Shell | Missing pyenv lazy initialization | Added pyenv lazy init matching rbenv pattern | ✅ Complete |
+| Shell | Non-existent .bash_aliases reference | Removed reference (correct .aliases already symlinked) | ✅ Complete |
+| Shell | PATH deduplication in wrong location | Moved to run AFTER all PATH modifications | ✅ Complete |
 | Linting | No pre-commit configuration | Created `.pre-commit-config.yaml` with yamllint & file fixers | ✅ Complete |
 | Linting | No YAML linting rules | Created `.yamllint` with 140 char limit, proper indentation | ✅ Complete |
 | Linting | No Ansible linting config | Created `.ansible-lint` (disabled, ready for future) | ✅ Complete |
@@ -49,14 +53,14 @@
 | 1 | Pre-commit hooks with yamllint | ✅ Complete |
 | 2 | YAML validation and linting | ✅ Complete |
 | 3 | Deprecated Ansible syntax removal | ✅ Complete |
-| 4 | Ansible-lint configuration | ⏳ Ready (pending ansible module) |
-| 5 | Python interpreter standardization | 🔴 Pending |
-| 6 | Delete disabled roles (pip, docker) | 🔴 Pending |
-| 7 | Shell initialization cleanup | ⏳ Pending |
+| 4 | Shell initialization cleanup | ✅ Complete |
+| 5 | Ansible-lint configuration | ⏳ Ready (pending ansible module) |
+| 6 | Python interpreter standardization | 🔴 Pending |
+| 7 | Delete disabled roles (pip, docker) | 🔴 Pending |
 | 8 | GitHub Actions CI/CD | 🟠 Pending |
 | 9 | Documentation updates | 🟠 Pending |
 | 10 | Error handling refactor | 🟠 Pending |
 
 ---
 
-**Progress:** 16 items completed, 6 items remaining
+**Progress:** 20 items completed, 6 items remaining
