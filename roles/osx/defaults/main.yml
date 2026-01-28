@@ -1,4 +1,7 @@
 ---
+# macOS hostname - customize this to your desired computer name
+osx_hostname: "Zeitgeist"
+
 keyboard_key_repeat_rate: 1
 keyboard_initial_key_repeat_delay: 20
 macos_auto_correct: "false"
