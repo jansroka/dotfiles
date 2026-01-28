@@ -90,13 +90,41 @@ time ansible-playbook maintenance.yml -v --ask-become-pass
 
 This runs different tasks than the `dotfiles.yml` playbook. It does stuff like spotlight DB rebuild, repair permissions, verify volume, etc.
 
-## How to make changes to this repo // pre-commit hooks
+## How to make changes to this repo
 
-I am using `pre-commit` in this repo to lint before commits. Install it via brew using
+### Pre-commit hooks
 
-``` shell
+This repository uses `pre-commit` to automatically lint and validate code before commits.
+
+#### Setup
+
+Install pre-commit:
+```shell
 brew install pre-commit
 ```
+
+Install git hooks:
+```shell
+pre-commit install
+```
+
+#### Running checks
+
+Hooks run automatically on `git commit`. To manually run all checks:
+```shell
+pre-commit run --all-files
+```
+
+To update hook versions:
+```shell
+pre-commit autoupdate
+```
+
+#### What gets checked
+
+- **YAML linting** (`yamllint`) - Validates YAML syntax, indentation, and line length
+- **File formatting** - Ensures proper line endings, removes trailing whitespace, adds final newline
+- **Ansible linting** (disabled) - Ready for future use when dependencies are properly configured
 
 ## Contributing
 
