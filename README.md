@@ -54,7 +54,7 @@ At the time of writing it’s possible to get all three like so:
 
 ``` shell
 xcode-select --install
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+/bin/bash -c "$(curl -fsSL https://brew.sh/install.sh)"
 brew install ansible
 ```
 
@@ -65,7 +65,7 @@ brew install ansible
 Run this:
 
 ``` shell
-curl -L https://raw.github.com/jansroka/dotfiles/master/bin/setup.sh | bash
+curl -L https://raw.githubusercontent.com/jansroka/dotfiles/main/bin/setup.sh | bash
 ```
 
 This sets up a few things and then runs `ansible-playbook -i hosts dotfiles.yml -v`.

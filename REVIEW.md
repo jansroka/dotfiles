@@ -12,10 +12,8 @@
 |----------|----------|-------|--------|
 | 🔴 HIGH | Python | Conflicting interpreter settings (ansible.cfg vs hosts) | Standardize to `/usr/bin/python3` |
 | 🔴 HIGH | Project | Disabled roles (pip, docker) commented out | Delete completely or document clearly |
-| 🟠 MEDIUM | Setup | GitHub Actions CI/CD | Implement automated validation workflow |
-| 🟡 LOW | Documentation | Outdated Homebrew install URL in README | Update with current install command |
+| � LOW | Documentation | Outdated Homebrew install URL in README | Update with current install command |
 | 🟡 LOW | Practices | `ignore_errors: true` misuse | Use proper `failed_when` error handling |
-| 🟡 LOW | Git | Incomplete signing key (8 hex vs full fingerprint) | Use full fingerprint or remove |
 
 ---
 
@@ -35,6 +33,8 @@
 | YAML | Dock indentation errors | Fixed inconsistent indentation (1→2 spaces) | ✅ Complete |
 | YAML | File ending issues | Normalized EOF on Docker, iTerm, Sublime, Zsh, UV files | ✅ Complete |
 | Docs | Missing pre-commit docs | Updated README with setup, usage, and validation details | ✅ Complete |
+| Docs | Outdated Homebrew installation URL | Updated to `/bin/bash` install script from brew.sh | ✅ Complete |
+| Docs | Outdated setup.sh URL (master branch) | Updated to main branch | ✅ Complete |
 | Homebrew | Outdated taps (bundle, services, microsoft/git) | Removed obsolete taps | ✅ Complete |
 | Homebrew | python@3.9 EOL + missing uv package | Removed python@3.9, added uv | ✅ Complete |
 | Homebrew | git-credential-manager-core renamed | Updated to git-credential-manager | ✅ Complete |
@@ -54,13 +54,12 @@
 | 2 | YAML validation and linting | ✅ Complete |
 | 3 | Deprecated Ansible syntax removal | ✅ Complete |
 | 4 | Shell initialization cleanup | ✅ Complete |
-| 5 | Ansible-lint configuration | ⏳ Ready (pending ansible module) |
-| 6 | Python interpreter standardization | 🔴 Pending |
-| 7 | Delete disabled roles (pip, docker) | 🔴 Pending |
-| 8 | GitHub Actions CI/CD | 🟠 Pending |
-| 9 | Documentation updates | 🟠 Pending |
-| 10 | Error handling refactor | 🟠 Pending |
+| 5 | Homebrew installation URL update | ✅ Complete |
+| 6 | Ansible-lint configuration | ⏳ Ready (pending ansible module) |
+| 7 | Python interpreter standardization | 🔴 Pending |
+| 8 | Delete disabled roles (pip, docker) | 🔴 Pending |
+| 9 | Error handling refactor | 🟠 Pending |
 
 ---
 
-**Progress:** 20 items completed, 6 items remaining
+**Progress:** 22 items completed, 4 items remaining
