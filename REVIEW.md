@@ -59,32 +59,23 @@ ansible_python_interpreter=/usr/bin/python3
 
 ## Ansible & YAML Issues
 
-### 3. **Deprecated Ansible Module Usage**
+### 3. **Deprecated Ansible Module Usage** ✅
 **Severity:** MEDIUM
 **Location:** Multiple files
+**Status:** COMPLETED (January 28, 2026)
 
-The codebase uses older `with_items` syntax which is deprecated:
+The codebase previously used older `with_items` syntax which is deprecated.
 
-```yaml
-with_items:
-  - {key: "tilesize", type: "float", value: "70"}
-```
+**Solution Implemented:**
+- Migrated all `with_items` to modern `loop` syntax
+- Files updated:
+  - roles/gem/tasks/main.yml
+  - roles/npm/tasks/main.yml
+  - roles/sublimetext/tasks/main.yml
+  - roles/osx/tasks/defaults.yml (8 instances)
+  - roles/duti/tasks/main.yml
 
-**Better Modern Syntax:**
-```yaml
-loop:
-  - key: tilesize
-    type: float
-    value: 70
-```
-
-**Affected Files:**
-- [roles/dock/tasks/main.yml](roles/dock/tasks/main.yml) - `with_items`
-- [roles/osx/tasks/defaults.yml](roles/osx/tasks/defaults.yml) - `with_items` (8+ instances)
-- [roles/iterm/tasks/main.yml](roles/iterm/tasks/main.yml) - `with_items`
-- Multiple other roles
-
-**Recommendation:** Migrate all `with_items` to `loop` for consistency with Ansible best practices.
+All playbooks now use the modern `loop` keyword for consistency with Ansible best practices.
 
 ---
 
@@ -375,8 +366,6 @@ Some tasks are not idempotent:
 |----------|----------|-------|--------|
 | 🔴 HIGH | Python | Conflicting interpreter settings | Standardize to `/usr/bin/python3` |
 | 🔴 HIGH | Project | Disabled roles (pip, docker) | Delete completely or document clearly |
-| 🟠 MEDIUM | Ansible | Remaining `with_items` instances | Migrate to `loop` syntax |
-| 🟠 MEDIUM | macOS | Shell initialization conflicts | Fix NVM double-loading in zshrc |
 | 🟠 MEDIUM | Setup | GitHub Actions CI/CD | Implement automated validation workflow |
 | 🟡 LOW | Documentation | Outdated brew install URL | Update README with current install command |
 | 🟡 LOW | Practices | `ignore_errors` misuse | Use proper error handling |
@@ -388,6 +377,7 @@ Some tasks are not idempotent:
 
 | Category | Issue | Solution | Status |
 |----------|-------|----------|--------|
+| Deprecated Syntax | Ansible `with_items` deprecated | Migrated to modern `loop` syntax across all roles | ✅ Complete |
 | Linting | No pre-commit configuration | Created `.pre-commit-config.yaml` with yamllint & file fixers | ✅ Complete |
 | Linting | No YAML linting rules | Created `.yamllint` with 140 char limit, proper indentation | ✅ Complete |
 | Linting | No Ansible linting config | Created `.ansible-lint` (disabled, ready for future) | ✅ Complete |
@@ -402,7 +392,6 @@ Some tasks are not idempotent:
 | macOS | Dockutil external dependency | Replaced with native defaults write API | ✅ Complete |
 | Paths | Hardcoded `/Users/jan/` paths | Use `{{ ansible_env.HOME }}` in iTerm, Hazel, Symlinks | ✅ Complete |
 | Paths | Hardcoded hostname "Zeitgeist" | Made configurable `{{ osx_hostname }}` variable | ✅ Complete |
-| Ansible | `with_items` → `loop` conversions | Updated iTerm, Hazel, Dock, OSX roles | ✅ Complete |
 
 ---
 
@@ -410,11 +399,11 @@ Some tasks are not idempotent:
 
 1. ✅ **Pre-commit hooks** - Implemented with yamllint and file formatters
 2. ✅ **YAML validation** - yamllint configuration created and active
-3. ⏳ **Ansible validation** - ansible-lint configuration ready (enable when ansible module available)
-4. 🔴 **Python interpreter conflict** - Standardize ansible.cfg and hosts file to use `/usr/bin/python3`
-5. 🔴 **Delete disabled roles** - Remove pip and docker roles entirely
-6. ⏳ **Shell initialization** - Remove NVM double-loading in zshrc (lazy + eager)
-7. 🟠 **Complete with_items migration** - Remaining instances should use `loop`
+3. ✅ **Deprecated syntax removal** - All `with_items` migrated to `loop`
+4. ⏳ **Ansible validation** - ansible-lint configuration ready (enable when ansible module available)
+5. 🔴 **Python interpreter conflict** - Standardize ansible.cfg and hosts file to use `/usr/bin/python3`
+6. 🔴 **Delete disabled roles** - Remove pip and docker roles entirely
+7. ⏳ **Shell initialization** - Remove NVM double-loading in zshrc (lazy + eager)
 8. 🟠 **GitHub Actions** - Add CI/CD workflow for automated validation
 9. 🟡 **Documentation** - Update README with current macOS version support and Homebrew install URL
 10. 🟡 **Error handling** - Replace `ignore_errors: true` with proper error handling
@@ -422,4 +411,4 @@ Some tasks are not idempotent:
 ---
 
 **Generated:** January 28, 2026
-**Last Updated:** January 28, 2026 (Pre-commit linting infrastructure implementation)
+**Last Updated:** January 28, 2026 (Deprecated Ansible module syntax migration complete)
