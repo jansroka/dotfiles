@@ -17,32 +17,21 @@ Previous versions of this repo (archived) can be found here:
 
 ## Available ansible roles
 
-- brew
-  - configures homebrew including casks & Microsoft Office
-- dock
-  - configures your OSX dock
-- duti
-  - sets default app associations via `duti`
-- gem
-  - sets up and maintains default gems
-- hazel
-  - ensures basic Hazel.app settings
-- iterm
-  - ensures iTerm2 preferences file is used
-- maintenance
-  - runs maintenance tasks including Spotlight database rebuild, disk verification, DNS cache flushing, LaunchServices rebuild
-- mas
-  - takes care of apps installed via Mac App Store
-- npm
-  - installs global npm packages
-- osx
-  - sets lots of defaults for macOS and macOS applications
-- sublime-text
-  - installs Sublime Text via Homebrew and symlinks preferences
-- symlinks
-  - softlinks configuration files into `~/`
-- uv
-  - verifies uv and pipx are installed for Python package management
+| Role | Purpose |
+|------|---------|
+| brew | Configures Homebrew including casks & Microsoft Office |
+| dock | Configures macOS dock |
+| duti | Sets default app associations |
+| gem | Sets up and maintains default gems |
+| hazel | Configures Hazel.app settings |
+| iterm | Configures iTerm2 preferences |
+| maintenance | Runs maintenance tasks (Spotlight rebuild, disk verification, DNS cache flushing, LaunchServices rebuild) |
+| mas | Manages Mac App Store installations |
+| npm | Installs global npm packages |
+| osx | Sets macOS and application defaults |
+| sublime-text | Installs Sublime Text and symlinks preferences |
+| symlinks | Softlinks configuration files to `~/` |
+| uv | Verifies uv and pipx are installed |
 
 ## Getting started
 
