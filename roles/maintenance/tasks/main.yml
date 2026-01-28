@@ -4,23 +4,9 @@
 - name: Import Spotlight maintenance tasks
   ansible.builtin.import_tasks: spotlight.yml
 
-# repair permissions
-# figure out current user id
-- name: Find user id / $(id -u)
-  ansible.builtin.command: id -u
-  register: maintenance_userid
-  tags: maintenance
-
-# warning: this command can not be canceled. Runtime is ca. 2 mins for 500gb
-- name: Run 'diskutil resetuserpermissions / $(id -u)'
-  ansible.builtin.command: "diskutil resetuserpermissions / {{ maintenance_userid.stdout }}"
-  become: true
-  tags: maintenance, resetuserpermissions
-
 # Check disk
-# Get list with 'diskutil list'
-- name: Run 'diskutil verifyVolume /dev/disk1'
-  ansible.builtin.command: "diskutil verifyVolume /dev/disk1"
+- name: Run 'diskutil verifyVolume /'
+  ansible.builtin.command: "diskutil verifyVolume /"
   become: true
   tags: maintenance
 
@@ -35,14 +21,6 @@
   ansible.builtin.command: "rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash;"
   become: true
   tags: maintenance, skip_ansible_lint
-
-# Speed up terminal by clearing ASL logs
-- name: Run 'rm -rfv /private/var/log/asl/*.asl'
-  ansible.builtin.file:
-    path: '/private/var/log/asl/*.asl'
-    state: absent
-  become: true
-  tags: maintenance
 
 # Delete launch service quarantine (list of all files ever downloaded)
 - name: Clean up LaunchServices quarantine
@@ -75,10 +53,6 @@
     path: '~/Library/Caches/'
     state: absent
   become: true
-  tags: maintenance
-
-- name: Run 'yarn cache clean'
-  ansible.builtin.command: yarn cache clean
   tags: maintenance
 
 - name: Clear print queue
