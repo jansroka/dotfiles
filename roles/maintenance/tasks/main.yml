@@ -23,9 +23,20 @@
   tags: maintenance, skip_ansible_lint
 
 # Delete launch service quarantine (list of all files ever downloaded)
-- name: Clean up LaunchServices quarantine
-  ansible.builtin.command: "bash {{ ansible_user_dir }}/Code/private/dotfiles/bin/clean_osx_downloads.sh"
+# Originally from: https://gist.github.com/flipphillips/ae200a3269ba714b8733fff0e1269cc8
+- name: Delete LaunchServices quarantine events
+  ansible.builtin.shell: |
+    sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* \
+      'delete from LSQuarantineEvent'
   tags: maintenance
+  failed_when: false
+
+- name: Vacuum LaunchServices quarantine database
+  ansible.builtin.shell: |
+    sqlite3 ~/Library/Preferences/com.apple.LaunchServices.QuarantineEventsV* \
+      'vacuum LSQuarantineEvent'
+  tags: maintenance
+  failed_when: false
 
 # Reset LaunchServices db
 # Splitting this into 2 lines to stay under our line limit of 180 chars
