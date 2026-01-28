@@ -4,4 +4,3 @@
 uv_cli_tools:
   - pip-autoremove
   - pycodestyle
-

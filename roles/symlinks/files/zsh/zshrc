@@ -55,7 +55,7 @@ load-nvmrc() {
     _init_nvm
     local node_version="$(nvm version)"
     local nvmrc_node_version=$(nvm version "$(cat .nvmrc)")
-    
+
     if [ "$nvmrc_node_version" = "N/A" ]; then
       nvm install
     elif [ "$nvmrc_node_version" != "$node_version" ]; then
