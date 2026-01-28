@@ -57,26 +57,6 @@
     - Kill Finder
   tags: osx, finder
 
-# Commented because this currently does not work on OSX Sonoma
-#
-# - name: Set Safari settings
-#   community.general.osx_defaults: domain=com.apple.Safari key={{ item.key }} type={{ item.type }} value={{ item.value }}
-#   with_items:
-#     # Show the full URL in the address bar (note: this still hides the scheme)
-#     - {key: "ShowFullURLInSmartSearchField", type: "bool", value: "true"}
-#     # Prevent Safari from opening ‘safe’ files automatically after downloading
-#     - {key: "AutoOpenSafeDownloads", type: "bool", value: "false"}
-#     # Allow hitting the Backspace key to go to the previous page in history
-#     - {key: "com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled", type: "bool", value: "true"}
-#     # Enable Safari’s debug menu
-#     - {key: "IncludeInternalDebugMenu", type: "bool", value: "true"}
-#     # Enable the Develop menu and the Web Inspector in Safari
-#     - {key: "IncludeDevelopMenu", type: "bool", value: "true"}
-#     - {key: "WebKitDeveloperExtrasEnabledPreferenceKey", type: "bool", value: "true"}
-#     - {key: "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled", type: "bool", value: "true"}
-#   notify:
-#     - Kill Safari
-#   tags: osx, safari
 
 - name: Set global settings
   community.general.osx_defaults: domain=NSGlobalDomain key={{ item.key }} type={{ item.type }} value={{ item.value }}
