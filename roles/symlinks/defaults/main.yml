@@ -1,5 +1,5 @@
 ---
-symlinks_files_src_dir: "~/Code/Private/dotfiles/roles/symlinks/files"
+symlinks_files_src_dir: "{{ ansible_env.HOME }}/Code/Private/dotfiles/roles/symlinks/files"
 
 symlinks:
   # wget
