@@ -1,9 +1,8 @@
 ---
 brew_taps:
   - heroku/brew
-  - homebrew/bundle
-  - homebrew/services
-  - microsoft/git
+  # Note: homebrew/bundle and homebrew/services are now part of core Homebrew
+  # Note: microsoft/git is no longer needed; git is available from core Homebrew
 
 brew_packages:
   - ansible
