@@ -33,7 +33,7 @@
 
 - name: Check if dock needs updating
   ansible.builtin.set_fact:
-    dock_needs_update: "{{ 'file-label' not in dock_current_items.stdout or 
+    dock_needs_update: "{{ 'file-label' not in dock_current_items.stdout or
                            dock_current_items.rc != 0 }}"
   tags: dock
 
@@ -49,8 +49,8 @@
 
     - name: Filter to only existing apps
       ansible.builtin.set_fact:
-        dock_items_to_add: "{{ dock_items_persist | 
-                              selectattr('path', 'defined') | 
+        dock_items_to_add: "{{ dock_items_persist |
+                              selectattr('path', 'defined') |
                               list |
                               reject('equalto', None) |
                               list }}"
