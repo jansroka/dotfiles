@@ -28,7 +28,7 @@
 # if item.stdout is empty, set assocation
 - name: Update file type association
   ansible.builtin.command: "duti -s {{ item.item.0.bundle_id }} {{ item.item.1 }} all"
-  with_items: "{{ duti_output.results | list }}"
+  loop: "{{ duti_output.results | list }}"
   # only do this when our check in the previous task resulted in an
   # error, meaning that the association is not what we expected
   when: item.rc == 1

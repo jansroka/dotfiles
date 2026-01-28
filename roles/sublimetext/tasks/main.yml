@@ -38,7 +38,7 @@
     dest: "/usr/local/bin/{{ item }}"
     state: link
   become: true
-  with_items:
+  loop:
     - subl
     - sublime
   tags: sublimetext

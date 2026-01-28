@@ -3,7 +3,7 @@
 # Heavily copied & inspired by https://github.com/elnappo/dotfiles/blob/master/ansible/tasks/macos_defaults.yml
 - name: Set Transmission settings
   community.general.osx_defaults: domain=org.m0k.transmission key={{ item.key }} type={{ item.type }} value={{ item.value }}
-  with_items:
+  loop:
     # Don’t prompt for confirmation before downloading
     - {key: "DownloadAsk", type: "bool", value: "false"}
     # Trash original torrent files
@@ -24,7 +24,7 @@
 
 - name: Set Finder settings
   community.general.osx_defaults: domain=com.apple.finder key={{ item.key }} type={{ item.type }} value={{ item.value }}
-  with_items:
+  loop:
     - {key: "NewWindowTarget", type: "string", value: "PfLo"}
     - {key: "NewWindowTargetPath", type: "string", value: "file://{{ ansible_env.HOME }}/"}
     # Show icons for hard drives, servers, and removable media on the desktop
@@ -60,7 +60,7 @@
 
 - name: Set global settings
   community.general.osx_defaults: domain=NSGlobalDomain key={{ item.key }} type={{ item.type }} value={{ item.value }}
-  with_items:
+  loop:
     # Set sidebar icon size to default (=medium=2)
     - {key: "NSTableViewDefaultSizeMode", type: "int", value: "2"}
     # Expand save panel by default
@@ -99,7 +99,7 @@
 
 - name: Set Activity Monitor settings
   community.general.osx_defaults: domain=com.apple.ActivityMonitor key={{ item.key }} type={{ item.type }} value={{ item.value }}
-  with_items:
+  loop:
     # Show the main window when launching Activity Monitor
     - {key: "OpenMainWindow", type: "bool", value: "true"}
     # Visualize CPU usage in the Activity Monitor Dock icon
@@ -113,7 +113,7 @@
 
 - name: Set some other settings
   community.general.osx_defaults: domain={{ item.domain }} key={{ item.key }} type={{ item.type }} value={{ item.value }}
-  with_items:
+  loop:
     # Enable the WebKit Developer Tools in the Mac App Store
     - {domain: "com.apple.appstore", key: "WebKitDeveloperExtras", type: "bool", value: "true"}
     # Enable Debug Menu in the Mac App Store
@@ -205,7 +205,7 @@
 # defaults write com.apple.dock wvous-bl-modifier -int 0
 - name: Configure hot-corners
   community.general.osx_defaults: domain=com.apple.dock key={{ item.key }} type={{ item.type }} value={{ item.value }}
-  with_items:
+  loop:
     # top right corner - screensaver
     - {key: "wvous-tr-corner", type: "int", value: "5"}
     - {key: "wvous-tr-modifier", type: "int", value: "0"}

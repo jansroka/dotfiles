@@ -25,7 +25,7 @@
     name: "{{ item }}"
     state: latest
     norc: false # load ~/.gemrc to ensure --no-document and --source https://rubygems.org is used
-  with_items: "{{ gem_outdatedgems.stdout_lines }}"
+  loop: "{{ gem_outdatedgems.stdout_lines }}"
   register: gem_pkg_result
   until: gem_pkg_result is success
   ignore_errors: true
