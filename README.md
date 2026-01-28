@@ -1,6 +1,6 @@
 # dotfiles
 
-These are my dotfiles for OSX Sequoia. There are many like them, but these ones are mine.
+These are my dotfiles for OSX Tahoe. There are many like them, but these ones are mine.
 
 Previous versions of this repo (archived) can be found here:
 
@@ -30,7 +30,7 @@ Previous versions of this repo (archived) can be found here:
 - iterm
   - ensures our own preferences file is used
 - maintenance
-  - runs a few maintenance tasks like repairPermissions, verifyVolume
+  - runs maintenance tasks including Spotlight database rebuild, disk verification, DNS cache flushing
 - mas
   - takes care of apps installed via Mac App Store
 - npm
@@ -65,7 +65,7 @@ brew install ansible
 Run this:
 
 ``` shell
-curl -L https://raw.githubusercontent.com/jansroka/dotfiles/main/bin/setup.sh | bash
+curl -L https://raw.githubusercontent.com/jansroka/dotfiles/main/setup.sh | bash
 ```
 
 This sets up a few things and then runs `ansible-playbook -i hosts dotfiles.yml -v`.
