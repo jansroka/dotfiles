@@ -69,7 +69,6 @@ brew_cask_packages:
   - element
   - firefox
   - fujitsu-scansnap-home
-  - git-credential-manager # was: git-credential-manager-core (renamed in newer versions)
   - github
   - google-chrome
   - hazel
