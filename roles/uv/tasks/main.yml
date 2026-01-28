@@ -1,0 +1,36 @@
+---
+- name: Verify uv is installed
+  ansible.builtin.command: uv --version
+  register: uv_version
+  changed_when: false
+  tags: uv
+
+- name: Display uv version
+  ansible.builtin.debug:
+    msg: "uv is installed: {{ uv_version.stdout }}"
+  tags: uv
+
+- name: Verify pipx is installed (required for CLI tool isolation)
+  ansible.builtin.command: pipx --version
+  register: pipx_version
+  changed_when: false
+  tags: uv
+
+- name: Display pipx version
+  ansible.builtin.debug:
+    msg: "pipx is installed: {{ pipx_version.stdout }}"
+  tags: uv
+
+- name: Install Python CLI tools with pipx
+  ansible.builtin.command: "pipx install {{ item }}"
+  loop: "{{ uv_cli_tools }}"
+  register: pipx_install_result
+  changed_when: "'already exists' not in pipx_install_result.stdout | lower"
+  failed_when: "pipx_install_result.rc != 0 and 'already installed' not in pipx_install_result.stdout | lower"
+  tags: uv
+
+- name: Upgrade pipx-managed tools
+  ansible.builtin.command: pipx upgrade-all
+  register: pipx_upgrade_result
+  changed_when: "'Upgrading' in pipx_upgrade_result.stdout"
+  tags: uv

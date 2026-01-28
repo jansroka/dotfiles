@@ -1,0 +1,7 @@
+---
+# Python packages to install with pipx (for CLI tools)
+# pipx creates isolated virtual environments for each tool
+uv_cli_tools:
+  - pip-autoremove
+  - pycodestyle
+
