@@ -9,14 +9,14 @@ dock_items_remove:
 # in a particular position in the Dock.
 dock_items_persist:
  - name: "OmniFocus"
-   path: "/Applications/OmniFocus.app/"
+   path: "/Applications/OmniFocus.app"
    pos: 2
  - name: "Firefox"
-   path: "/Applications/Firefox.app/"
+   path: "/Applications/Firefox.app"
    pos: 3
  - name: "Sublime Text"
-   path: "/Applications/Sublime Text.app/"
+   path: "/Applications/Sublime Text.app"
    pos: 4
  - name: "Visual Studio Code"
-   path: "/Applications/Visual\ Studio\ Code.app/"
+   path: "/Applications/Visual Studio Code.app"
    pos: 5

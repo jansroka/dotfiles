@@ -39,6 +39,23 @@
 
 - name: Reset and repopulate dock (only if needed)
   block:
+    - name: Verify dock apps exist
+      ansible.builtin.stat:
+        path: "{{ item.path }}"
+      register: dock_app_check
+      loop: "{{ dock_items_persist }}"
+      failed_when: false
+      tags: dock
+
+    - name: Filter to only existing apps
+      ansible.builtin.set_fact:
+        dock_items_to_add: "{{ dock_items_persist | 
+                              selectattr('path', 'defined') | 
+                              list |
+                              reject('equalto', None) |
+                              list }}"
+      tags: dock
+
     - name: Clear dock items
       ansible.builtin.command: defaults write com.apple.dock persistent-apps -array
       become: true
