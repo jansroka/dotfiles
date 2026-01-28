@@ -99,103 +99,12 @@ loop:
 
 ---
 
-### 5. **Outdated Homebrew Taps**
-**Severity:** MEDIUM  
-**Location:** [roles/brew/defaults/main.yml](roles/brew/defaults/main.yml)
 
-```yaml
-brew_taps:
-  - heroku/brew
-  - homebrew/bundle
-  - homebrew/services
-  - microsoft/git
-```
 
-**Issues:**
-- `homebrew/bundle` and `homebrew/services` are now part of core Homebrew (no longer needed as taps)
-- `microsoft/git` is outdated; Git comes via standard Homebrew now
-- `heroku/brew` still valid but should verify if it's still maintained
-
----
-
-### 6. **Missing or Outdated Homebrew Packages**
-**Severity:** MEDIUM  
-**Location:** [roles/brew/defaults/main.yml](roles/brew/defaults/main.yml)
-
-**Issues:**
-- **`python@3.9`** - This is very outdated (EOL since October 2022). Should remove or upgrade to `python@3.11` or `python@3.12`
-- **`lotyp/formulae/dockutil`** - This custom tap may not be needed; check if `dockutil` is available in core Homebrew now
-- **`git-credential-manager-core`** - Renamed to `git-credential-manager` in newer versions
-- **`nvm`** - Installing via Homebrew is discouraged; direct installation is preferred
-- **`nodejs`** - Missing from list but npm role exists. Node management unclear (nvm vs system)
-- **`rbenv`** + **`ruby-build`** - Good, but ensure Ruby setup is documented
-
-**Missing Modern Tools:**
-- No mention of **`uv`** (modern Python package manager, better than pip/pipx)
-- No **`mise`** or **`asdf`** (modern alternative to nvm/rbenv/pyenv)
-- No **`direnv`** (load env vars per-directory)
-
----
-
-### 7. **Hardcoded User Path Issues**
-**Severity:** MEDIUM  
-**Location:** Multiple files
-
-```bash
-# roles/iterm/tasks/main.yml
-defaults write com.googlecode.iterm2 'PrefsCustomFolder' -string '/Users/jan/...'
-
-# roles/hazel/tasks/main.yml
-value: "~/Code/Private/dotfiles/roles/hazel/files"
-
-# roles/symlinks/defaults/main.yml
-symlinks_files_src_dir: "~/Code/Private/dotfiles/roles/symlinks/files"
-
-# roles/osx/tasks/base.yml
-value: "Zeitgeist"  # hardcoded hostname
-```
-
-**Problems:**
-- `/Users/jan/` hardcoded in iTerm config (not portable)
-- Hostname hardcoded as "Zeitgeist" - only works for this user's specific setup
-- Not all use tilde expansion consistently
-
-**Recommendation:** Use Ansible variables (`{{ ansible_env.HOME }}`, `{{ ansible_user_id }}`) instead of hardcoded paths.
-
----
 
 ## macOS-Specific Issues
 
-### 8. **Deprecated macOS Features & Removed Preferences**
-**Severity:** MEDIUM  
-**Location:** [roles/osx/tasks/defaults.yml](roles/osx/tasks/defaults.yml)
 
-```yaml
-# Commented out because "this currently does not work on OSX Sonoma"
-# - name: Set Safari settings
-#   community.general.osx_defaults: domain=com.apple.Safari
-```
-
-**Issues:**
-- Safari defaults commented with note about Sonoma (2023), but we're now on Sequoia (2024)
-- Need to verify if these work now, or document why they're permanently broken
-- Some `osx_defaults` may not work on Sequoia:
-  - Dashboard settings might be outdated (Dashboard removed in some versions)
-  - Mission Control animations may have changed
-
-**Recommendation:** Test Safari settings on Sequoia and uncomment if working, or document permanent incompatibilities.
-
----
-
-### 9. **Deprecated macOS Tools**
-**Severity:** LOW  
-**Location:** Various
-
-- **`bsdtar` / **`tar`** - Modern alternatives exist
-- **`Transmission` settings** - Transmission may not work properly on Sequoia (check if abandoned)
-- **`dockutil`** - Functionality may be partially deprecated; Apple's native APIs are preferred
-
----
 
 ### 10. **Shell Initialization Issues**
 **Severity:** MEDIUM  
@@ -454,21 +363,34 @@ Some tasks are not idempotent:
 
 ---
 
-## Summary of Required Actions
+## Summary of Required Actions (Remaining Issues)
 
 | Priority | Category | Issue | Action |
 |----------|----------|-------|--------|
 | 🔴 HIGH | Python | Conflicting interpreter settings | Standardize to `/usr/bin/python3` |
 | 🔴 HIGH | Project | Disabled roles with no status | Delete or document clearly |
-| 🟠 MEDIUM | Ansible | `with_items` deprecated syntax | Migrate all to `loop` |
-| 🟠 MEDIUM | Homebrew | Outdated package versions | Update python@3.9 → 3.12 |
-| 🟠 MEDIUM | Homebrew | Unnecessary taps | Remove bundle/services/microsoft-git |
-| 🟠 MEDIUM | macOS | Shell initialization conflicts | Fix NVM double-loading |
+| 🟠 MEDIUM | Ansible | `with_items` deprecated syntax | Migrate remaining instances to `loop` |
+| 🟠 MEDIUM | macOS | Shell initialization conflicts | Fix NVM double-loading in zshrc |
 | 🟠 MEDIUM | Setup | Missing pre-commit config | Create `.pre-commit-config.yaml` |
-| 🟠 MEDIUM | Paths | Hardcoded user paths | Use Ansible variables |
 | 🟡 LOW | Documentation | Outdated brew install URL | Update README |
 | 🟡 LOW | Practices | `ignore_errors` misuse | Use proper error handling |
 | 🟡 LOW | Efficiency | String-based package checking | Use Ansible's native modules |
+
+---
+
+## ✅ Completed Improvements
+
+| Category | Issue | Solution | Commit |
+|----------|-------|----------|--------|
+| Homebrew | Outdated taps (bundle, services, microsoft/git) | Removed obsolete taps | `de5147a` |
+| Homebrew | python@3.9 EOL + missing uv package | Removed python@3.9, added uv | `de5147a` |
+| Homebrew | git-credential-manager-core renamed | Updated to git-credential-manager | `de5147a` |
+| Homebrew | Dockutil custom tap dependency | Removed from packages | `9de61fc` |
+| macOS | Deprecated Safari settings code | Removed 20 lines of dead code | `e9ac349` |
+| macOS | Dockutil external dependency | Replaced with native defaults write API | `9de61fc` |
+| Paths | Hardcoded `/Users/jan/` paths | Use `{{ ansible_env.HOME }}` in iTerm, Hazel, Symlinks | `10bcad0` |
+| Paths | Hardcoded hostname "Zeitgeist" | Made configurable `{{ osx_hostname }}` variable | `9a0108b` |
+| Ansible | `with_items` → `loop` conversions | Updated iTerm, Hazel, Dock, OSX roles | Multiple |
 | 🟡 LOW | macOS | Broken Safari settings | Test and uncomment or remove |
 
 ---
