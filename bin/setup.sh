@@ -17,7 +17,7 @@ if [[ ! -x /usr/bin/gcc ]]; then
 fi
 
 # install homwbrew
-if [[ ! -x /usr/local/bin/brew ]]; then
+if [[ ! -x /opt/homebrew/bin/brew ]]; then
   echo "[i] Install Homebrew"
   # get this from https://brew.sh/
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -28,7 +28,7 @@ fi
 eval "$($(brew --prefix)/bin/brew shellenv)"
 
 # install ansible
-if [[ ! -x /usr/local/bin/ansible ]]; then
+if [[ ! -x /opt/homebrew/bin/ansible ]]; then
     echo "[i] Install Ansible"
     brew install ansible
 fi
