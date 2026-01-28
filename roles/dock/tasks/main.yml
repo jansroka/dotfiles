@@ -1,14 +1,10 @@
 ---
 # from https://github.com/geerlingguy/ansible-collection-mac
-- name: Install dockutil
-  community.general.homebrew:
-    name: dockutil
-    state: present
-  tags: dock
+# Note: Using native macOS APIs instead of dockutil for better compatibility.
 
 - name: Set Dock settings
   community.general.osx_defaults: domain=com.apple.dock key={{ item.key }} type={{ item.type }} value={{ item.value }}
-  with_items:
+  loop:
     # Enable highlight hover effect for the grid view of a stack (Dock)
     - {key: "mouse-over-hilite-stack", type: "bool", value: "true"}
     # Set the icon size (px) of Dock items
@@ -23,19 +19,23 @@
     - Kill Dock
   tags: dock
 
-- name: Remove all dock items
-  ansible.builtin.shell: "dockutil --remove all --no-restart"
+- name: Reset persistent dock items (native API)
+  ansible.builtin.command: defaults write com.apple.dock persistent-apps -array
   become: true
   become_user: jan
+  changed_when: false
   notify:
     - Kill Dock
   tags: dock
 
-- name: Add our dock items
-  ansible.builtin.shell: "dockutil --add '{{ item.path }}' --position {{ item.pos }} --no-restart"
+- name: Add dock items using native API
+  ansible.builtin.command: >
+    defaults write com.apple.dock persistent-apps -array-add
+    "<dict><key>tile-data</key><dict><key>file-label</key><string>{{ item.name }}</string></dict><key>tile-type</key><string>file-tile</string></dict>"
   become: true
   become_user: jan
   loop: "{{ dock_items_persist }}"
+  changed_when: false
   notify:
     - Kill Dock
   tags: dock

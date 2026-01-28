@@ -29,7 +29,6 @@ brew_packages:
   - libffi
   - libpq # postgres requirement
   - libyaml # rbenv/ruby requirement
-  - lotyp/formulae/dockutil
   - mas
   - nano
   - nmap
@@ -39,8 +38,8 @@ brew_packages:
   - pipx
   - pre-commit
   - pyenv
-  - python@3.9
   - readline # rbenv/ruby requirement
+  - uv # modern Python package manager
   - rbenv
   - rsync
   # Don't install ruby from homebrew
@@ -70,7 +69,7 @@ brew_cask_packages:
   - element
   - firefox
   - fujitsu-scansnap-home
-  - git-credential-manager-core
+  - git-credential-manager # was: git-credential-manager-core (renamed in newer versions)
   - github
   - google-chrome
   - hazel
