@@ -1,7 +1,7 @@
 # Dotfiles Repository Comprehensive Review
 
-**Date:** January 28, 2026  
-**macOS Target:** Sequoia (15)  
+**Date:** January 28, 2026
+**macOS Target:** Sequoia (15)
 **Review Focus:** Inconsistencies, outdated practices, and areas for improvement
 
 ---
@@ -9,7 +9,7 @@
 ## Critical Issues
 
 ### 1. **Python Interpreter Conflict in ansible.cfg**
-**Severity:** HIGH  
+**Severity:** HIGH
 **Location:** [ansible.cfg](ansible.cfg#L14)
 
 ```properties
@@ -31,7 +31,7 @@ ansible_python_interpreter=/usr/bin/python3
 ---
 
 ### 2. **Disabled Roles with No Migration Path**
-**Severity:** HIGH  
+**Severity:** HIGH
 **Location:** [dotfiles.yml](dotfiles.yml)
 
 ```yaml
@@ -50,7 +50,7 @@ ansible_python_interpreter=/usr/bin/python3
 - No clear indication whether these should be deleted or will be re-enabled
 - Docker role permanently disabled but still exists in `roles/docker/`
 
-**Recommendation:** 
+**Recommendation:**
 - Either delete unused roles completely or document their deprecated status clearly
 - Document why `pip` role is disabled and what manages Python packages now (pyenv + pipx?)
 - Update comments with current reasoning (not 2024 dates)
@@ -60,7 +60,7 @@ ansible_python_interpreter=/usr/bin/python3
 ## Ansible & YAML Issues
 
 ### 3. **Deprecated Ansible Module Usage**
-**Severity:** MEDIUM  
+**Severity:** MEDIUM
 **Location:** Multiple files
 
 The codebase uses older `with_items` syntax which is deprecated:
@@ -89,7 +89,7 @@ loop:
 ---
 
 ### 4. **Inconsistent YAML Formatting**
-**Severity:** LOW  
+**Severity:** LOW
 **Location:** Multiple files
 
 **Issues Found:**
@@ -107,7 +107,7 @@ loop:
 
 
 ### 10. **Shell Initialization Issues**
-**Severity:** MEDIUM  
+**Severity:** MEDIUM
 **Location:** [roles/symlinks/files/zsh/zshrc](roles/symlinks/files/zsh/zshrc)
 
 **Issues Found:**
@@ -148,7 +148,7 @@ Requires `uvx` (uv package manager) but not in brew packages list.
 ---
 
 ### 11. **Inconsistent Shell Setup**
-**Severity:** MEDIUM  
+**Severity:** MEDIUM
 **Location:** Multiple shell files
 
 **Issues:**
@@ -162,7 +162,7 @@ Requires `uvx` (uv package manager) but not in brew packages list.
 ## Missing or Incomplete Features
 
 ### 12. **No Git Signing Key Management**
-**Severity:** LOW  
+**Severity:** LOW
 **Location:** [roles/symlinks/files/git/gitconfig](roles/symlinks/files/git/gitconfig)
 
 ```properties
@@ -179,25 +179,31 @@ Requires `uvx` (uv package manager) but not in brew packages list.
 
 ---
 
-### 13. **No Configuration Validation or Linting Setup**
-**Severity:** MEDIUM  
+### 13. **Configuration Validation and Linting Setup** ✅
+**Severity:** MEDIUM
 **Location:** Project root
+**Status:** COMPLETED (January 28, 2026)
 
-**Missing Files:**
-- `.ansible-lint` - No ansible-lint configuration
-- `.yamllint` - No yaml-lint configuration  
-- `.pre-commit-config.yaml` - README mentions pre-commit but no config file exists!
-- No GitHub Actions or CI/CD for validation
+**Files Created:**
+- ✅ `.pre-commit-config.yaml` - Defines pre-commit hooks (yamllint, file formatters)
+- ✅ `.yamllint` - YAML linting configuration with 140 character line limit
+- ✅ `.ansible-lint` - Ansible-lint configuration (disabled pending ansible module setup)
 
-**Note:** README explicitly mentions:
-> "I am using `pre-commit` in this repo to lint before commits."
+**Implementation Details:**
+- Pre-commit installed via `brew install pre-commit`
+- Hooks installed with `pre-commit install`
+- All checks passing on full codebase
+- Automatically validates YAML syntax, indentation, and line length
+- Ensures proper file endings and removes trailing whitespace
+- README updated with setup and usage instructions
 
-But `.pre-commit-config.yaml` doesn't exist!
+**Outstanding Items:**
+- GitHub Actions or CI/CD (not yet implemented)
 
 ---
 
 ### 14. **No Test/Validation Strategy**
-**Severity:** MEDIUM  
+**Severity:** MEDIUM
 
 **Issues:**
 - No way to validate playbooks before running them
@@ -208,7 +214,7 @@ But `.pre-commit-config.yaml` doesn't exist!
 ---
 
 ### 15. **macOS Application Bundle Changes Not Handled**
-**Severity:** LOW  
+**Severity:** LOW
 **Location:** [roles/dock/defaults/main.yml](roles/dock/defaults/main.yml)
 
 ```yaml
@@ -226,7 +232,7 @@ But `.pre-commit-config.yaml` doesn't exist!
 ## Documentation Issues
 
 ### 16. **Outdated Setup Instructions**
-**Severity:** MEDIUM  
+**Severity:** MEDIUM
 **Location:** [README.md](README.md)
 
 **Issues:**
@@ -249,7 +255,7 @@ But `.pre-commit-config.yaml` doesn't exist!
 ---
 
 ### 17. **Poor Comments & Documentation**
-**Severity:** LOW  
+**Severity:** LOW
 **Location:** Multiple files
 
 ```yaml
@@ -268,7 +274,7 @@ But `.pre-commit-config.yaml` doesn't exist!
 ## Best Practices Missing
 
 ### 18. **No Error Handling Strategy**
-**Severity:** LOW  
+**Severity:** LOW
 **Location:** Multiple roles
 
 Uses `ignore_errors: true` multiple times without justification:
@@ -285,7 +291,7 @@ Uses `ignore_errors: true` multiple times without justification:
 ---
 
 ### 19. **Inefficient Package Checking**
-**Severity:** MEDIUM  
+**Severity:** MEDIUM
 **Location:** [roles/brew/tasks/main.yml](roles/brew/tasks/main.yml)
 
 ```yaml
@@ -316,7 +322,7 @@ This is idempotent and doesn't require manual checking.
 ---
 
 ### 20. **Incomplete Idempotency**
-**Severity:** MEDIUM  
+**Severity:** MEDIUM
 **Location:** Multiple roles
 
 Some tasks are not idempotent:
@@ -324,7 +330,7 @@ Some tasks are not idempotent:
 - name: Remove all dock items
   ansible.builtin.shell: "dockutil --remove all --no-restart"
 
-- name: Add our dock items  
+- name: Add our dock items
   ansible.builtin.shell: "dockutil --add '{{ item.path }}' ..."
 ```
 
@@ -337,7 +343,7 @@ Some tasks are not idempotent:
 ## Security Concerns
 
 ### 21. **Git Credential Storage Method**
-**Severity:** LOW  
+**Severity:** LOW
 **Location:** [roles/symlinks/files/git/gitconfig](roles/symlinks/files/git/gitconfig)
 
 ```properties
@@ -368,46 +374,52 @@ Some tasks are not idempotent:
 | Priority | Category | Issue | Action |
 |----------|----------|-------|--------|
 | 🔴 HIGH | Python | Conflicting interpreter settings | Standardize to `/usr/bin/python3` |
-| 🔴 HIGH | Project | Disabled roles with no status | Delete or document clearly |
-| 🟠 MEDIUM | Ansible | `with_items` deprecated syntax | Migrate remaining instances to `loop` |
+| 🔴 HIGH | Project | Disabled roles (pip, docker) | Delete completely or document clearly |
+| 🟠 MEDIUM | Ansible | Remaining `with_items` instances | Migrate to `loop` syntax |
 | 🟠 MEDIUM | macOS | Shell initialization conflicts | Fix NVM double-loading in zshrc |
-| 🟠 MEDIUM | Setup | Missing pre-commit config | Create `.pre-commit-config.yaml` |
-| 🟡 LOW | Documentation | Outdated brew install URL | Update README |
+| 🟠 MEDIUM | Setup | GitHub Actions CI/CD | Implement automated validation workflow |
+| 🟡 LOW | Documentation | Outdated brew install URL | Update README with current install command |
 | 🟡 LOW | Practices | `ignore_errors` misuse | Use proper error handling |
-| 🟡 LOW | Efficiency | String-based package checking | Use Ansible's native modules |
+| 🟡 LOW | Git | Incomplete signing key | Use full fingerprint or remove |
 
 ---
 
 ## ✅ Completed Improvements
 
-| Category | Issue | Solution | Commit |
+| Category | Issue | Solution | Status |
 |----------|-------|----------|--------|
-| Homebrew | Outdated taps (bundle, services, microsoft/git) | Removed obsolete taps | `de5147a` |
-| Homebrew | python@3.9 EOL + missing uv package | Removed python@3.9, added uv | `de5147a` |
-| Homebrew | git-credential-manager-core renamed | Updated to git-credential-manager | `de5147a` |
-| Homebrew | Dockutil custom tap dependency | Removed from packages | `9de61fc` |
-| macOS | Deprecated Safari settings code | Removed 20 lines of dead code | `e9ac349` |
-| macOS | Dockutil external dependency | Replaced with native defaults write API | `9de61fc` |
-| Paths | Hardcoded `/Users/jan/` paths | Use `{{ ansible_env.HOME }}` in iTerm, Hazel, Symlinks | `10bcad0` |
-| Paths | Hardcoded hostname "Zeitgeist" | Made configurable `{{ osx_hostname }}` variable | `9a0108b` |
-| Ansible | `with_items` → `loop` conversions | Updated iTerm, Hazel, Dock, OSX roles | Multiple |
-| 🟡 LOW | macOS | Broken Safari settings | Test and uncomment or remove |
+| Linting | No pre-commit configuration | Created `.pre-commit-config.yaml` with yamllint & file fixers | ✅ Complete |
+| Linting | No YAML linting rules | Created `.yamllint` with 140 char limit, proper indentation | ✅ Complete |
+| Linting | No Ansible linting config | Created `.ansible-lint` (disabled, ready for future) | ✅ Complete |
+| YAML | Dock indentation errors | Fixed inconsistent indentation (1→2 spaces) in dock defaults | ✅ Complete |
+| YAML | File ending issues | Normalized EOF on Docker, iTerm, Sublime, Zsh, UV files | ✅ Complete |
+| Docs | Missing pre-commit docs | Updated README with setup, usage, and validation details | ✅ Complete |
+| Homebrew | Outdated taps (bundle, services, microsoft/git) | Removed obsolete taps | ✅ Complete |
+| Homebrew | python@3.9 EOL + missing uv package | Removed python@3.9, added uv | ✅ Complete |
+| Homebrew | git-credential-manager-core renamed | Updated to git-credential-manager | ✅ Complete |
+| Homebrew | Dockutil custom tap dependency | Removed from packages | ✅ Complete |
+| macOS | Deprecated Safari settings code | Removed 20 lines of dead code | ✅ Complete |
+| macOS | Dockutil external dependency | Replaced with native defaults write API | ✅ Complete |
+| Paths | Hardcoded `/Users/jan/` paths | Use `{{ ansible_env.HOME }}` in iTerm, Hazel, Symlinks | ✅ Complete |
+| Paths | Hardcoded hostname "Zeitgeist" | Made configurable `{{ osx_hostname }}` variable | ✅ Complete |
+| Ansible | `with_items` → `loop` conversions | Updated iTerm, Hazel, Dock, OSX roles | ✅ Complete |
 
 ---
 
 ## Recommendations for Modernization
 
-1. **Switch to UV** instead of pip/pipx for Python package management
-2. **Use mise or asdf** instead of nvm/rbenv/pyenv for language version management
-3. **Implement pre-commit hooks** with actual config file
-4. **Add ansible-lint and yamllint** configuration
-5. **Create a test/validation workflow** (GitHub Actions or local script)
-6. **Document macOS version support** (Sequoia only? Or backwards compatible?)
-7. **Clean up shell initialization** - remove redundant NVM loading
-8. **Replace hardcoded paths** with Ansible variables
-9. **Delete unused roles** (docker, pip) entirely
-10. **Add error handling** instead of `ignore_errors: true`
+1. ✅ **Pre-commit hooks** - Implemented with yamllint and file formatters
+2. ✅ **YAML validation** - yamllint configuration created and active
+3. ⏳ **Ansible validation** - ansible-lint configuration ready (enable when ansible module available)
+4. 🔴 **Python interpreter conflict** - Standardize ansible.cfg and hosts file to use `/usr/bin/python3`
+5. 🔴 **Delete disabled roles** - Remove pip and docker roles entirely
+6. ⏳ **Shell initialization** - Remove NVM double-loading in zshrc (lazy + eager)
+7. 🟠 **Complete with_items migration** - Remaining instances should use `loop`
+8. 🟠 **GitHub Actions** - Add CI/CD workflow for automated validation
+9. 🟡 **Documentation** - Update README with current macOS version support and Homebrew install URL
+10. 🟡 **Error handling** - Replace `ignore_errors: true` with proper error handling
 
 ---
 
 **Generated:** January 28, 2026
+**Last Updated:** January 28, 2026 (Pre-commit linting infrastructure implementation)
