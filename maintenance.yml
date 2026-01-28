@@ -4,3 +4,5 @@
 
   roles:
     - role: maintenance
+    - role: uv
+      tags: uv
