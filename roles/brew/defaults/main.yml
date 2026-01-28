@@ -5,105 +5,137 @@ brew_taps:
   # Note: microsoft/git is no longer needed; git is available from core Homebrew
 
 brew_packages:
-  - ansible
-  - ansible-lint
-  - autoconf
-  - automake
-  - awscli
+  # --- Core System Tools ---
   - bash
-  - binutils
-  - cmake
+  - zsh
   - coreutils
   - diffutils
-  - duf
+  - gzip
+  - less
+  - nano
+  - openssh
+  - rsync
+  - wget
+  - tree
+
+  # --- Version Managers ---
+  - nvm
+  - pyenv
+  - rbenv
+  - ruby-build
+  - # Don't install ruby from homebrew; use rbenv for this
+
+  # --- Python Tools & Package Management ---
+  - pipx
+  - uv # modern Python package manager
+  - pre-commit
+  - python@3.14
+
+  # --- Build Tools & Compilers ---
+  - autoconf
+  - automake
+  - binutils
+  - cmake
+
+  # --- Ruby Dependencies ---
+  - gmp # rbenv/ruby requirement
+  - libffi
+  - libyaml # rbenv/ruby requirement
+  - openssl@3 # rbenv/ruby requirement
+  - readline # rbenv/ruby requirement
+  - zlib
+
+  # --- Development Tools ---
+  - ansible
+  - ansible-lint
+  - docker
   - duti
   - exiftool
   - git
-  - gmp # rbenv/ruby requirement
   - gnupg
-  - gzip
   - heroku/brew/heroku
-  - htop
-  - jq
-  - less
-  - libffi
-  - libpq # postgres requirement
-  - libyaml # rbenv/ruby requirement
-  - mas
-  - nano
-  - nmap
-  - nvm
-  - openssh
-  - openssl@3 # rbenv/ruby requirement
-  - pipx
-  - pre-commit
-  - pyenv
-  - readline # rbenv/ruby requirement
-  - uv # modern Python package manager
-  - rbenv
-  - rsync
-  # Don't install ruby from homebrew
-  # We will use rbenv for this
-  # - ruby
-  - ruby-build
   - shellcheck
   - stripe/stripe-cli/stripe
-  - tidy-html5
-  - tree
-  - unbound
-  - wget
-  - wifi-password
   - yamllint
   - yq
-  - zlib
-  - zsh
+
+  # --- Database & Network Tools ---
+  - jq # JSON processor
+  - libpq # postgres requirement
+  - nmap
+  - unbound
+
+  # --- System Utilities ---
+  - awscli
+  - duf # disk usage
+  - htop # system monitor
+  - mas # Mac App Store CLI
+  - tidy-html5
+  - wifi-password
 
 brew_cask_packages:
-  - 1password
-  - arq
-  - authy
-  - chromedriver
-  - cyberduck
-  - docker
-  - dupeguru
-  - element
-  - firefox
-  - fujitsu-scansnap-home
+  # --- Development & Coding ---
   - github
-  - google-chrome
-  - hazel
   - iterm2
-  - keka  # open source alternative to the unarchiver
+  - sublime-text
+  - visual-studio-code
+
+  # --- Browsers & Web ---
+  - chromedriver
+  - firefox
+  - google-chrome
+  - ngrok
+
+  # --- Communication & Collaboration ---
+  - element
+  - microsoft-teams
+  - signal
+  - skype
+  - slack
+  - thunderbird
+
+  # --- Cloud & Infrastructure ---
+  - docker
+  - microsoft-remote-desktop
+
+  # --- Productivity & Office ---
+  - google-drive
+  - microsoft-auto-update
+  - microsoft-office
+  - obsidian
+  - omnifocus
+  - scrivener
+  - timing
+
+  # --- Media & Entertainment ---
+  - keka # open source alternative to the unarchiver
   - kindle
+  - simple-comic
+  - spotify
+  - transmission
+  - vlc
+
+  # --- Utilities & Tools ---
+  - 1password
+  - arq # backup
+  - authy
+  - cyberduck
+  - dupeguru
+  - exiftool
+  - fujitsu-scansnap-home
+  - git-credential-manager
+  - hazel
   - little-snitch
   - maccy
   - macfuse
   - maestral
-  - microsoft-auto-update
-  - microsoft-office
-  - microsoft-remote-desktop
-  - microsoft-teams
   - netnewswire
-  - ngrok
-  - obsidian
-  - omnifocus
-  - scrivener
-  - signal
-  - simple-comic
-  - skype
-  - slack
-  - spotify
-  - sublime-text
   - superduper
   - tabula
   - teamviewer
-  - thunderbird
-  - timing
-  - transmission
+  - the-unarchiver
   - utm
   - veracrypt
-  - visual-studio-code
-  - vlc
   - zoom
 
 brew_cask_ql_packages:
