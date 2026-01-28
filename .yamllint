@@ -1,0 +1,35 @@
+---
+extends: default
+
+rules:
+  # Indent with 2 spaces
+  indentation:
+    spaces: 2
+    indent-sequences: true
+
+  # Line length - allow up to 140 for readability
+  line-length:
+    max: 140
+    level: warning
+
+  # Allow multiple documents
+  document-start: disable
+
+  # Comments spacing
+  comments:
+    min-spaces-from-content: 1
+
+  # Trailing spaces are fixed by pre-commit
+  trailing-spaces: disable
+
+  # Allow # inline comments
+  comments-indentation: disable
+
+  # Braces - relax for now
+  braces:
+    min-spaces-inside: 0
+    max-spaces-inside: 0
+
+ignore: |
+  /roles/symlinks/files/
+  /roles/symlinks/defaults/main.yml

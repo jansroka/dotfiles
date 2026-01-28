@@ -1,0 +1,27 @@
+---
+# Pre-commit hooks configuration
+# Install: brew install pre-commit
+# Setup: pre-commit install
+# Run: pre-commit run --all-files
+
+repos:
+  # Ansible linting - disabled until ansible properly configured
+  # - repo: https://github.com/ansible/ansible-lint.git
+  #   rev: v24.2.0
+  #   hooks:
+  #     - id: ansible-lint
+
+  # YAML linting
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.38.0
+    hooks:
+      - id: yamllint
+
+  # General file fixes
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+        args: [--fix=lf]

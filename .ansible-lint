@@ -1,0 +1,39 @@
+---
+# Ansible-lint configuration
+
+# Set minimum required version
+min_ansible_version: "2.10"
+
+# Warn about deprecated Ansible features
+warn_list:
+  - experimental
+  - formatting  # Warns about formatting issues
+
+# Rules to skip (if needed)
+# skip_list:
+#   - rule-id
+
+# List of additional collections to install
+# This is often used for roles in galaxy.yml
+# extra_vars:
+#   ANSIBLE_LIBRARY: /path/to/custom/plugins/modules
+
+# Exclude certain paths from linting
+exclude_paths:
+  - .git
+  - .venv
+  - venv
+  - roles/symlinks/files/
+
+# Use 'strict' mode
+use_default_rules: true
+
+# File types to lint
+file_includes:
+  - "*.yml"
+  - "*.yaml"
+  - "*.json"
+  - ".ansible-lint"
+
+# Parseable format for easier integration
+format: default
