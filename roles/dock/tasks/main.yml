@@ -19,23 +19,41 @@
     - Kill Dock
   tags: dock
 
-- name: Reset persistent dock items (native API)
-  ansible.builtin.command: defaults write com.apple.dock persistent-apps -array
-  become: true
-  become_user: jan
+- name: Get current dock persistent apps
+  ansible.builtin.command: defaults read com.apple.dock persistent-apps
+  register: dock_current_items
   changed_when: false
-  notify:
-    - Kill Dock
+  failed_when: false
   tags: dock
 
-- name: Add dock items using native API
-  ansible.builtin.command: >
-    defaults write com.apple.dock persistent-apps -array-add
-    "<dict><key>tile-data</key><dict><key>file-label</key><string>{{ item.name }}</string></dict><key>tile-type</key><string>file-tile</string></dict>"
-  become: true
-  become_user: jan
-  loop: "{{ dock_items_persist }}"
-  changed_when: false
-  notify:
-    - Kill Dock
+- name: Build expected dock app names
+  ansible.builtin.set_fact:
+    dock_expected_apps: "{{ dock_items_persist | map(attribute='name') | list }}"
+  tags: dock
+
+- name: Check if dock needs updating
+  ansible.builtin.set_fact:
+    dock_needs_update: "{{ 'file-label' not in dock_current_items.stdout or 
+                           dock_current_items.rc != 0 }}"
+  tags: dock
+
+- name: Reset and repopulate dock (only if needed)
+  block:
+    - name: Clear dock items
+      ansible.builtin.command: defaults write com.apple.dock persistent-apps -array
+      become: true
+      become_user: jan
+
+    - name: Add dock items
+      ansible.builtin.command: >
+        defaults write com.apple.dock persistent-apps -array-add
+        "<dict><key>tile-data</key><dict><key>file-label</key><string>{{ item.name }}</string></dict><key>tile-type</key><string>file-tile</string></dict>"
+      become: true
+      become_user: jan
+      loop: "{{ dock_items_persist }}"
+
+    - name: Kill Dock to apply changes
+      ansible.builtin.command: killall Dock
+      become: true
+  when: dock_needs_update
   tags: dock
