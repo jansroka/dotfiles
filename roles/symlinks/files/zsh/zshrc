@@ -22,6 +22,21 @@ rbenv() {
   command rbenv "$@"
 }
 
+# pyenv lazy initialization
+_pyenv_loaded=0
+
+_init_pyenv() {
+  if [ $_pyenv_loaded -eq 0 ]; then
+    eval "$(pyenv init -)"
+    _pyenv_loaded=1
+  fi
+}
+
+pyenv() {
+  _init_pyenv
+  command pyenv "$@"
+}
+
 # NVM lazy initialization - defer until first use
 export NVM_DIR="$HOME/.nvm"
 _nvm_loaded=0
@@ -69,18 +84,9 @@ add-zsh-hook chpwd load-nvmrc
 # Basic Memory - Use Python 3.13 to avoid Pydantic warnings
 bm() { uvx --python python3.13 basic-memory "$@"; }
 
-# Source bash aliases for compatibility
-[ -f ~/.bash_aliases ] && source ~/.bash_aliases
-
 # Load acme.sh environment if it exists
 if [ -f ~/.acme.sh/acme.sh.env ]; then
   . ~/.acme.sh/acme.sh.env
-fi
-
-# Initialize NVM eagerly for node availability
-if [ -d "$_BREW_PREFIX/opt/nvm" ]; then
-  [ -s "$_BREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$_BREW_PREFIX/opt/nvm/nvm.sh"
-  [ -s "$_BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$_BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
 fi
 
 # Deduplicate PATH entries (must be done after all PATH modifications)
