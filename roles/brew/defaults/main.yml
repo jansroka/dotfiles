@@ -53,11 +53,16 @@ brew_packages:
   - exiftool
   - git
   - gnupg
-  - heroku/brew/heroku
   - shellcheck
   - stripe/stripe-cli/stripe
   - yamllint
   - yq
+
+  # --- Cloud & Infrastructure CLIs ---
+  - awscli
+  - hcloud
+  - heroku/brew/heroku
+  - upcloud-cli
 
   # --- Database & Network Tools ---
   - jq # JSON processor
@@ -66,7 +71,6 @@ brew_packages:
   - unbound
 
   # --- System Utilities ---
-  - awscli
   - duf # disk usage
   - htop # system monitor
   - mas # Mac App Store CLI
