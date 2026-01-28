@@ -13,10 +13,10 @@
 
 - name: Kill Safari
   ansible.builtin.command: killall Safari
-  ignore_errors: true
+  failed_when: false
   tags: osx
 
 - name: Kill Terminal
   ansible.builtin.command: killall Terminal
-  ignore_errors: true
+  failed_when: false
   tags: osx

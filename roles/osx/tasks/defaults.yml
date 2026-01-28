@@ -169,7 +169,7 @@
     - {domain: "com.apple.helpviewer", key: "DevMode", type: "bool", value: "true"}
     # Prevent Photos from opening automatically when devices are plugged in
     - {domain: "com.apple.ImageCapture", key: "disableHotPlug", type: "bool", value: "true"}
-  ignore_errors: true
+  failed_when: false
   tags: osx, other-settings
 
 # Commented out because this is not workin on OSX Sonoma

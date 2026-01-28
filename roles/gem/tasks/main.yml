@@ -28,7 +28,7 @@
   loop: "{{ gem_outdatedgems.stdout_lines }}"
   register: gem_pkg_result
   until: gem_pkg_result is success
-  ignore_errors: true
+  failed_when: false
   tags: gem
 
 - name: Run 'gem cleanup'
