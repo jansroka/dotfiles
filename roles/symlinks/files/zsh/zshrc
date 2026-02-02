@@ -75,5 +75,8 @@ if [ -f ~/.acme.sh/acme.sh.env ]; then
   . ~/.acme.sh/acme.sh.env
 fi
 
+# direnv - automatically load .envrc files
+eval "$(direnv hook zsh)"
+
 # Deduplicate PATH entries (must be done after all PATH modifications)
 export PATH="${(j/:/)${(@u)${(s/:/)PATH}}}"
