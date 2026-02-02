@@ -37,9 +37,8 @@ pyenv() {
   command pyenv "$@"
 }
 
-# NVM lazy initialization - defer until first use
+# NVM - Load on every shell start
 export NVM_DIR="$HOME/.nvm"
-_nvm_loaded=0
 
 # Determine brew prefix without calling brew directly
 if [ -d /opt/homebrew ]; then
@@ -48,26 +47,13 @@ else
   _BREW_PREFIX=/usr/local
 fi
 
-_init_nvm() {
-  if [ $_nvm_loaded -eq 0 ]; then
-    [ -s "$_BREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$_BREW_PREFIX/opt/nvm/nvm.sh"
-    [ -s "$_BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$_BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
-    _nvm_loaded=1
-  fi
-}
-
-# Override nvm command to initialize on first use
-nvm() {
-  _init_nvm
-  command nvm "$@"
-}
+[ -s "$_BREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$_BREW_PREFIX/opt/nvm/nvm.sh"
+[ -s "$_BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$_BREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
 
 # Automatically use nvm when entering directories with .nvmrc
 autoload -U add-zsh-hook
 load-nvmrc() {
-  # Only initialize NVM if entering a directory with .nvmrc
   if [ -f .nvmrc ]; then
-    _init_nvm
     local node_version="$(nvm version)"
     local nvmrc_node_version=$(nvm version "$(cat .nvmrc)")
 
