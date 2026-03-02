@@ -39,13 +39,15 @@
   failed_when: false
 
 # Reset LaunchServices db
+# Note: -kill option was removed from lsregister in recent macOS versions
 # Splitting this into 2 lines to stay under our line limit of 180 chars
-- name: Clean up LaunchServices to remove duplicates in the “Open With” menu
+- name: Clean up LaunchServices to remove duplicates in the "Open With" menu
   ansible.builtin.command: >
     /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister
-    -kill -r -domain local -domain system -domain user && killall Finder
+    -r -domain local -domain system -domain user && killall Finder
   become: true
   tags: maintenance
+  failed_when: false
 
 # Purge memory
 - name: Purge inactive memory
