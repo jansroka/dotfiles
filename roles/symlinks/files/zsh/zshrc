@@ -12,7 +12,7 @@ _rbenv_loaded=0
 
 _init_rbenv() {
   if [ $_rbenv_loaded -eq 0 ]; then
-    eval "$(rbenv init -)"
+    eval "$(command rbenv init -)"
     _rbenv_loaded=1
   fi
 }
