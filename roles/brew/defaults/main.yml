@@ -22,8 +22,7 @@ brew_packages:
   - nvm
   - pyenv
   - rbenv
-  - ruby-build
-  - # Don't install ruby from homebrew; use rbenv for this
+  - ruby-build # Don't install ruby from homebrew; use rbenv for this
 
   # --- Python Tools & Package Management ---
   - pipx
