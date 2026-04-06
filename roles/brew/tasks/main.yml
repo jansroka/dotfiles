@@ -39,6 +39,7 @@
 - name: Update & upgrade casks
   community.general.homebrew_cask:
     upgrade_all: true
+    sudo_password: "{{ ansible_become_password }}"
   tags: brew
 
 - name: Cleanup brew
