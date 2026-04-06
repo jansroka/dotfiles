@@ -124,7 +124,6 @@ brew_cask_packages:
   - authy
   - cyberduck
   - dupeguru
-  - exiftool
   - fujitsu-scansnap-home
   - git-credential-manager
   - hazel
