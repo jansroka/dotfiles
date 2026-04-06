@@ -84,7 +84,6 @@ brew_cask_packages:
   - visual-studio-code
 
   # --- Browsers & Web ---
-  - chromedriver
   - firefox
   - google-chrome
   - ngrok

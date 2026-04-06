@@ -31,9 +31,9 @@
     update_homebrew: true
   tags: brew
 
-- name: Upgrade all brew packages
-  community.general.homebrew:
-    upgrade_all: true
+- name: Upgrade all brew formulae
+  ansible.builtin.command: brew upgrade --formula
+  changed_when: true
   tags: brew
 
 - name: Update & upgrade casks
