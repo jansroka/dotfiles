@@ -128,13 +128,9 @@ pre-commit autoupdate
 
 ## Inspiration
 
-- <https://github.com/soehlert/osx-ansible>
 - <https://github.com/geerlingguy/mac-dev-playbook/>
 - <https://github.com/geerlingguy/ansible-collection-mac>
-- <https://github.com/kinglouie/ansible-role-macos>
-- <https://github.com/fgimian/macbuild-ansible>
-- <https://github.com/elnappo/dotfiles/>
 - <https://github.com/adamchainz/mac-ansible>
-- <https://github.com/TalkingQuickly/ansible-osx-setup>
-- <https://github.com/jcf/ansible-dotfiles>
+- <https://github.com/elnappo/dotfiles/>
 - <https://github.com/frdmn/dotfiles>
+- <https://github.com/TalkingQuickly/ansible-osx-setup>
