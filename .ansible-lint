@@ -1,22 +1,19 @@
 ---
 # Ansible-lint configuration
 
-# Set minimum required version
-min_ansible_version: "2.10"
-
 # Warn about deprecated Ansible features
 warn_list:
   - experimental
-  - formatting  # Warns about formatting issues
 
-# Rules to skip (if needed)
-# skip_list:
-#   - rule-id
-
-# List of additional collections to install
-# This is often used for roles in galaxy.yml
-# extra_vars:
-#   ANSIBLE_LIBRARY: /path/to/custom/plugins/modules
+# Rules skipped intentionally for a personal dotfiles playbook:
+#   no-changed-when  - maintenance shell tasks are always run by design
+#   no-free-form     - osx_defaults free-form style is a project convention
+#   var-naming       - default_gems / brew_packages use short names intentionally
+skip_list:
+  - no-changed-when
+  - no-free-form
+  - var-naming[no-role-prefix]
+  - yaml[line-length]  # line-length is already warning-only in .yamllint
 
 # Exclude certain paths from linting
 exclude_paths:
@@ -25,15 +22,4 @@ exclude_paths:
   - venv
   - roles/symlinks/files/
 
-# Use 'strict' mode
 use_default_rules: true
-
-# File types to lint
-file_includes:
-  - "*.yml"
-  - "*.yaml"
-  - "*.json"
-  - ".ansible-lint"
-
-# Parseable format for easier integration
-format: default

@@ -25,10 +25,15 @@ rules:
   # Allow # inline comments
   comments-indentation: disable
 
-  # Braces - relax for now
+  # Braces - ansible-lint requires max-spaces-inside: 1
   braces:
     min-spaces-inside: 0
-    max-spaces-inside: 0
+    max-spaces-inside: 1
+
+  # Octal values - ansible-lint requires these
+  octal-values:
+    forbid-implicit-octal: true
+    forbid-explicit-octal: true
 
 ignore: |
   /roles/symlinks/files/

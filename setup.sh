@@ -47,6 +47,10 @@ $SHELL
 echo "[i] Git pull'ing dotfiles repo from Github"
 cd ~/Code/Private/dotfiles/ && git pull origin main
 
+# Install required Ansible collections
+echo "[i] Install Ansible collections"
+cd ~/Code/Private/dotfiles/ && ansible-galaxy collection install -r requirements.yml
+
 # Run main playbook
 echo "[i] Run Playbook"
 cd ~/Code/Private/dotfiles/ && time ansible-playbook -i hosts dotfiles.yml -v

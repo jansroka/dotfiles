@@ -1,6 +1,7 @@
 ---
 brew_taps:
   - heroku/brew
+  - stripe/stripe-cli
   - upcloudltd/tap
   # Note: homebrew/bundle and homebrew/services are now part of core Homebrew
   # Note: microsoft/git is no longer needed; git is available from core Homebrew
@@ -49,14 +50,13 @@ brew_packages:
   - ansible
   - ansible-lint
   - direnv
-  - docker
   - duti
   - exiftool
   - gh
   - git
   - gnupg
   - shellcheck
-  - stripe/stripe-cli/stripe
+  - stripe
   - yamllint
   - yq
 

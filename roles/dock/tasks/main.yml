@@ -38,6 +38,8 @@
   tags: dock
 
 - name: Reset and repopulate dock (only if needed)
+  when: dock_needs_update
+  tags: dock
   block:
     - name: Verify dock apps exist
       ansible.builtin.stat:
@@ -72,5 +74,3 @@
     - name: Kill Dock to apply changes
       ansible.builtin.command: killall Dock
       become: true
-  when: dock_needs_update
-  tags: dock
