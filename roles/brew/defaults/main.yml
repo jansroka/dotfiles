@@ -48,9 +48,11 @@ brew_packages:
   # --- Development Tools ---
   - ansible
   - ansible-lint
+  - direnv
   - docker
   - duti
   - exiftool
+  - gh
   - git
   - gnupg
   - shellcheck
@@ -68,6 +70,7 @@ brew_packages:
   - jq # JSON processor
   - libpq # postgres requirement
   - nmap
+  - postgresql@18
   - unbound
 
   # --- System Utilities ---

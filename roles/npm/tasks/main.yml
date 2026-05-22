@@ -8,7 +8,6 @@
     - browser-sync
     - eslint
     - joi
-    - jshint
     - license-checker
     - npm-upgrade
     - npm-check
