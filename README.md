@@ -18,35 +18,36 @@ Previous versions of this repo (archived) can be found here:
 ## Available ansible roles
 
 | Role | Purpose |
-|------|---------|
-| brew | Configures Homebrew including casks & Microsoft Office |
-| dock | Configures macOS dock |
-| duti | Sets default app associations |
-| gem | Sets up and maintains default gems |
-| hazel | Configures Hazel.app settings |
+|------|----------|
+| brew | Installs and maintains Homebrew formulae, casks, and taps |
+| dock | Configures macOS Dock layout and behaviour |
+| duti | Sets default application associations for file types |
+| gem | Sets up and maintains default gems via rbenv |
+| hazel | Configures Hazel rules and settings |
 | iterm | Configures iTerm2 preferences |
-| maintenance | Runs maintenance tasks (Spotlight rebuild, disk verification, DNS cache flushing, LaunchServices rebuild) |
+| maintenance | Runs maintenance tasks (Spotlight rebuild, disk verification, DNS cache flush, LaunchServices rebuild) |
 | mas | Manages Mac App Store installations |
 | npm | Installs global npm packages |
 | osx | Sets macOS and application defaults |
-| sublime-text | Installs Sublime Text and symlinks preferences |
-| symlinks | Softlinks configuration files to `~/` |
+| sublimetext | Installs Sublime Text and symlinks preferences |
+| symlinks | Softlinks dotfiles and config files into `~/` |
 | uv | Verifies uv and pipx are installed |
 
 ## Getting started
 
 You’ll need the following dependencies before getting started.
 
-- Ansible
+- Xcode Command Line Tools
 - Homebrew
-- Xcode
+- Ansible + Ansible collections
 
-At the time of writing it’s possible to get all three like so:
+At the time of writing it's possible to get all three like so:
 
 ``` shell
 xcode-select --install
 /bin/bash -c "$(curl -fsSL https://brew.sh/install.sh)"
 brew install ansible
+ansible-galaxy collection install -r requirements.yml
 ```
 
 ## How to run this
@@ -113,9 +114,9 @@ pre-commit autoupdate
 
 #### What gets checked
 
-- **YAML linting** (`yamllint`) - Validates YAML syntax, indentation, and line length
+- **Ansible linting** (`ansible-lint`) - Validates playbooks and roles against best practices
+- **YAML linting** (`yamllint`) - Validates YAML syntax, indentation, and formatting
 - **File formatting** - Ensures proper line endings, removes trailing whitespace, adds final newline
-- **Ansible linting** (disabled) - Ready for future use when dependencies are properly configured
 
 ## Contributing
 
