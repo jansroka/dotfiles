@@ -1,6 +1,7 @@
 ---
 brew_taps:
   - heroku/brew
+  - upcloudltd/tap
   # Note: homebrew/bundle and homebrew/services are now part of core Homebrew
   # Note: microsoft/git is no longer needed; git is available from core Homebrew
 
@@ -61,7 +62,7 @@ brew_packages:
   - awscli
   - hcloud
   - heroku/brew/heroku
-  - upcloud-cli
+  - upcloudltd/tap/upcloud-cli
 
   # --- Database & Network Tools ---
   - jq # JSON processor
@@ -92,13 +93,11 @@ brew_cask_packages:
   - element
   - microsoft-teams
   - signal
-  - skype
   - slack
   - thunderbird
 
   # --- Cloud & Infrastructure ---
   - docker
-  - microsoft-remote-desktop
 
   # --- Productivity & Office ---
   - google-drive
@@ -147,6 +146,5 @@ brew_cask_ql_packages:
   - qlstephen
   - qlvideo
   - quicklook-csv
-  - quicklook-json
   - suspicious-package
   - webpquicklook

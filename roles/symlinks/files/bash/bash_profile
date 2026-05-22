@@ -39,3 +39,7 @@ rbenv() {
 }
 
 # pyenv is already initialized in exports via pyenv init --path
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/jan/.lmstudio/bin"
+# End of LM Studio CLI section
