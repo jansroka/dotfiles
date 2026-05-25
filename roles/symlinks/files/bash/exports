@@ -115,6 +115,8 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 if [[ -t 0 ]]; then
   export GPG_TTY=$(tty)
 fi
+# git - accept auto-generated merge commit messages without opening editor
+export GIT_MERGE_AUTOEDIT=no
 
 # format `time` output in zsh
 export TIMEFMT=$'\nTIME NEEDED:\nreal\t%E\nuser\t%U\nsys\t%S'
