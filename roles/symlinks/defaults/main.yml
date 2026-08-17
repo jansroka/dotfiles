@@ -8,6 +8,7 @@ symlinks:
   - { src: "gem/gemrc", dest: "~/.gemrc" }
   # git
   - { src: "git/gitconfig", dest: "~/.gitconfig" }
+  - { src: "git/gitconfig-daito", dest: "~/.gitconfig-daito" }
   - { src: "git/gitignore_global", dest: "~/.gitignore_global" }
   # bash
   - { src: "bash/aliases", dest: "~/.aliases" }

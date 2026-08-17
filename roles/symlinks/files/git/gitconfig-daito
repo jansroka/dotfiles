@@ -1,0 +1,21 @@
+# Daito-specific git identity.
+#
+# Included from ~/.gitconfig via a conditional `includeIf "gitdir:~/Code/Daito/"`,
+# so every repo under ~/Code/Daito automatically commits as jan@daito.io while
+# everything else keeps the github@jansroka.com default.
+#
+# Why this exists: the global identity is github@jansroka.com, but Daito work
+# lands under jan@daito.io. Any tool that filters history by `git config
+# user.email` (session close-out sweeps, `git log --author`, contribution
+# stats) matched ZERO commits in a freshly-cloned Daito repo and reported
+# "nothing shipped". Setting it per-clone by hand does not survive the next
+# clone; this does.
+#
+# Deliberately NOT set here: user.signingkey. The local GPG key 08ECE799 is
+# bound to the github@jansroka.com uid and has no jan@daito.io uid, so pinning
+# a different signing key here would break local commit signing. Existing
+# jan@daito.io commits in these repos are signed by GitHub's own key because
+# they are server-side squash-merges, not local commits.
+
+[user]
+	email = jan@daito.io

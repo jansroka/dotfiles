@@ -68,3 +68,19 @@
 	showstash = true
 [credential "https://dev.azure.com"]
 	useHttpPath = true
+[credential "https://github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+# Per-directory identity overrides.
+# MUST stay at the end of this file: git applies config in the order it reads it,
+# so an include only wins over the [user] block above if it comes after it.
+# The trailing slash on the gitdir pattern is required — it makes the pattern
+# match that directory and everything beneath it.
+[includeIf "gitdir:~/Code/Daito/"]
+	path = ~/.gitconfig-daito

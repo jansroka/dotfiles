@@ -3,7 +3,7 @@
 {
 
     // package "Monokai++"
-    "color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
+    "color_scheme": "Mariana.sublime-color-scheme",
 
     // how stuff looks
     /*"font_size": 24,*/
