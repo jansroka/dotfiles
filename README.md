@@ -29,9 +29,10 @@ Previous versions of this repo (archived) can be found here:
 | mas | Manages Mac App Store installations |
 | npm | Installs global npm packages |
 | osx | Sets macOS and application defaults |
-| sublimetext | Installs Sublime Text and symlinks preferences |
+| sublimetext | Installs Sublime Text and symlinks preferences (disabled in `dotfiles.yml`, replaced by `zed`) |
 | symlinks | Softlinks dotfiles and config files into `~/` |
 | uv | Verifies uv and pipx are installed |
+| zed | Installs Zed and symlinks its settings |
 
 ## Getting started
 

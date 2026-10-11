@@ -84,8 +84,8 @@ brew_cask_packages:
   # --- Development & Coding ---
   - github
   - iterm2
-  - sublime-text
   - visual-studio-code
+  - zed
 
   # --- Browsers & Web ---
   - firefox

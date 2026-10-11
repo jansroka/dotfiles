@@ -1,0 +1,27 @@
+---
+- name: Ensure zed brew cask is installed
+  community.general.homebrew_cask:
+    name: zed
+    greedy: true
+    state: present
+  tags: zed
+
+# Only the config files are symlinked: ~/.config/zed also holds app state
+# (prompts library db, installed themes) that does not belong in git.
+- name: Ensure Zed config folder exists
+  ansible.builtin.file:
+    path: "/Users/jan/.config/zed"
+    state: directory
+    mode: '0755'
+  tags: zed
+
+- name: Symlink Zed config files
+  ansible.builtin.file:
+    src: "/Users/jan/Code/Private/dotfiles/roles/zed/files/{{ item }}"
+    dest: "/Users/jan/.config/zed/{{ item }}"
+    state: link
+    force: true
+    follow: false
+  loop:
+    - settings.json
+  tags: zed

@@ -1,0 +1,63 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "base_keymap": "VSCode",
+  "minimap": {
+    "show": "always"
+  },
+  "confirm_quit": true,
+  // Carried over from Sublime Text ("tab_size", "word_wrap")
+  "tab_size": 2,
+  "soft_wrap": "editor_width",
+  "auto_install_extensions": {
+    "html": true,
+    "ansible": true
+  },
+  "file_types": {
+    "postgres": [
+      "*.sql"
+    ],
+    "yaml": [
+      "*.tftpl",
+      "*.example"
+    ],
+    // Replaces Sublime's ApplySyntax Ansible rules; globs from zed.dev/docs/languages/ansible
+    "Ansible": [
+      "**.ansible.yml",
+      "**/defaults/*.yml",
+      "**/meta/*.yml",
+      "**/tasks/*.yml",
+      "**/handlers/*.yml",
+      "**/group_vars/*.yml",
+      "**/host_vars/*.yml",
+      "**/playbooks/*.yml",
+      "**playbook*.yml"
+    ]
+  },
+  "auto_indent_on_paste": true,
+  "linked_edits": true,
+  "show_edit_predictions": true,
+  "format_on_save": "on",
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    }
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "One Dark",
+  },
+}
