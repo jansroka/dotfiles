@@ -24,40 +24,42 @@
   register: dock_current_items
   changed_when: false
   failed_when: false
+  check_mode: false
   tags: dock
 
-- name: Build expected dock app names
+- name: Verify dock apps exist
+  ansible.builtin.stat:
+    path: "{{ item.path }}"
+  register: dock_app_check
+  loop: "{{ dock_items_persist }}"
+  tags: dock
+
+# Missing apps are left out of the comparison too, otherwise the Dock would
+# never match and every run would rebuild it.
+- name: Filter to only existing apps
   ansible.builtin.set_fact:
-    dock_expected_apps: "{{ dock_items_persist | map(attribute='name') | list }}"
+    dock_items_to_add: "{{ dock_app_check.results | selectattr('stat.exists') | map(attribute='item') | list }}"
+  tags: dock
+
+# The Dock stores each app as a file URL, e.g. file:///Applications/Visual%20Studio%20Code.app/
+- name: Collect current and expected dock app URLs
+  ansible.builtin.set_fact:
+    dock_current_urls: >-
+      {{ dock_current_items.stdout | regex_findall('_CFURLString" = "([^"]+)"') }}
+    dock_expected_urls: >-
+      {{ dock_items_to_add | map(attribute='path') | map('urlencode')
+         | map('regex_replace', '^', 'file://') | map('regex_replace', '$', '/') | list }}
   tags: dock
 
 - name: Check if dock needs updating
   ansible.builtin.set_fact:
-    dock_needs_update: "{{ 'file-label' not in dock_current_items.stdout or
-                           dock_current_items.rc != 0 }}"
+    dock_needs_update: "{{ dock_current_items.rc != 0 or dock_current_urls != dock_expected_urls }}"
   tags: dock
 
 - name: Reset and repopulate dock (only if needed)
   when: dock_needs_update
   tags: dock
   block:
-    - name: Verify dock apps exist
-      ansible.builtin.stat:
-        path: "{{ item.path }}"
-      register: dock_app_check
-      loop: "{{ dock_items_persist }}"
-      failed_when: false
-      tags: dock
-
-    - name: Filter to only existing apps
-      ansible.builtin.set_fact:
-        dock_items_to_add: "{{ dock_items_persist |
-                              selectattr('path', 'defined') |
-                              list |
-                              reject('equalto', None) |
-                              list }}"
-      tags: dock
-
     - name: Clear dock items
       ansible.builtin.command: defaults write com.apple.dock persistent-apps -array
       become: true
@@ -66,10 +68,10 @@
     - name: Add dock items
       ansible.builtin.command: >
         defaults write com.apple.dock persistent-apps -array-add
-        "<dict><key>tile-data</key><dict><key>file-label</key><string>{{ item.name }}</string></dict><key>tile-type</key><string>file-tile</string></dict>"
+        "<dict><key>tile-data</key><dict><key>file-data</key><dict><key>_CFURLString</key><string>file://{{ item.path | urlencode }}/</string><key>_CFURLStringType</key><integer>15</integer></dict></dict><key>tile-type</key><string>file-tile</string></dict>"
       become: true
       become_user: jan
-      loop: "{{ dock_items_persist }}"
+      loop: "{{ dock_items_to_add }}"
 
     - name: Kill Dock to apply changes
       ansible.builtin.command: killall Dock
