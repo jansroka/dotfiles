@@ -23,7 +23,11 @@
       tags: osx
     - role: uv
       tags: uv
-    - role: sublimetext
-      tags: sublimetext
+    # Disabled after migrating to Zed; kept for a potential return.
+    # Re-enabling also needs `sublime-text` back in brew_cask_packages.
+    # - role: sublimetext
+    #   tags: sublimetext
+    - role: zed
+      tags: zed
     - role: symlinks
       tags: symlinks

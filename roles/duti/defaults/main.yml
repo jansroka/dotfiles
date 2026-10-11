@@ -1,7 +1,7 @@
 ---
 # use 'duti -x jpg' to get current assocation
 # use 'duti -e avi' to get UTI declarations for extension
-# use 'duti -vs com.sublimetext.4 .c all' to figure out uti names
+# use 'duti -vs dev.zed.Zed .c all' to figure out uti names
 
 # use 'lsappinfo | grep 'bundleID="' | cut -d'"' -f2 | sort | uniq'
 #   to get a list of all bundle_id's on your system
@@ -9,8 +9,8 @@
 # use 'mdls -name kMDItemContentType -name kMDItemContentTypeTree -name kMDItemKind <existingfile>'
 # to get current uti
 duti_default_apps_associations:
-  # Sublime text
-  - bundle_id: com.sublimetext.4
+  # Zed
+  - bundle_id: dev.zed.Zed
     utis:
       - public.json
       - public.text
