@@ -16,8 +16,8 @@ duti_default_apps_associations:
       - public.text
       - public.yaml
 
-  # VLC
-  - bundle_id: org.videolan.vlc
+  # IINA
+  - bundle_id: com.colliderli.iina
     utis:
       - .avi
       - .mkv
@@ -39,6 +39,10 @@ duti_default_apps_associations:
       - .jpeg
       - .jpg
       - .pdf
-      - .png
       - .tif
       - .tiff
+
+  # CleanShot X
+  - bundle_id: pl.maketheweb.cleanshotx
+    utis:
+      - .png

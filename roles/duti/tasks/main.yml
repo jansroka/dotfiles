@@ -6,32 +6,48 @@
     state: present
   tags: duti
 
-# check if current association is same bundle_id as expected
-# if yes, write into stdout
-# if no, keep stdout empty
-# read this into duti_output for later use
-- name: Check file type association
-  ansible.builtin.command: "duti -x {{ item.1 }} | grep {{ item.0.bundle_id }}"
-  with_subelements:
-    - "{{ duti_default_apps_associations }}"
-    - utis
-  register: duti_output
-  changed_when: duti_output.rc == 1
-  failed_when: "'Failed to get default application' in duti_output.stderr"
+# duti -s fails for a bundle ID that is not installed, so those apps are skipped.
+- name: Find installed apps for file type associations
+  ansible.builtin.command:
+    argv: [mdfind, "kMDItemCFBundleIdentifier == '{{ item.bundle_id }}'"]
+  loop: "{{ duti_default_apps_associations }}"
+  loop_control:
+    label: "{{ item.bundle_id }}"
+  register: duti_app_check
+  changed_when: false
+  check_mode: false
   tags: duti
 
-# - debug:
-#    var: duti_output
-#  tags: duti
+- name: Filter to associations of installed apps
+  ansible.builtin.set_fact:
+    duti_installed_associations: "{{ duti_app_check.results | selectattr('stdout') | map(attribute='item') | list }}"
+  tags: duti
 
-# if we have something in item.stdout, do nothing
-# if item.stdout is empty, set assocation
+# Entries starting with a dot are file extensions, everything else is a UTI.
+# `duti -x` prints app name, path and bundle ID; `duti -d` prints only the bundle ID.
+# Both exit non-zero when no default app is set, which counts as a mismatch.
+- name: Check file type association
+  ansible.builtin.command:
+    argv: "{{ ['duti', '-x' if item.1.startswith('.') else '-d', item.1] }}"
+  loop: "{{ duti_installed_associations | subelements('utis') }}"
+  loop_control:
+    label: "{{ item.1 }}"
+  register: duti_output
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  tags: duti
+
+# macOS applies the change a few seconds after duti returns, and from
+# macOS 26.4 may ask the user to confirm each change.
 - name: Update file type association
-  ansible.builtin.command: "duti -s {{ item.item.0.bundle_id }} {{ item.item.1 }} all"
-  loop: "{{ duti_output.results | list }}"
-  # only do this when our check in the previous task resulted in an
-  # error, meaning that the association is not what we expected
-  when: item.rc == 1
+  ansible.builtin.command:
+    argv: [duti, -s, "{{ item.item.0.bundle_id }}", "{{ item.item.1 }}", all]
+  loop: "{{ duti_output.results }}"
+  loop_control:
+    label: "{{ item.item.1 }} -> {{ item.item.0.bundle_id }}"
+  when: item.item.0.bundle_id not in item.stdout_lines
+  changed_when: true
   notify:
     - Kill Finder
   tags: duti
