@@ -103,4 +103,7 @@
     /*"font_size": 20,*/
     /*"font_size": 22,*/
     "font_size": 20,
+    "file_icon_theme":
+    [
+	],
 }
