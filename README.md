@@ -60,7 +60,7 @@ Run this:
 curl -L https://raw.githubusercontent.com/jansroka/dotfiles/main/setup.sh | bash
 ```
 
-This sets up a few things and then runs `ansible-playbook -i hosts dotfiles.yml -v`.
+This sets up a few things and then runs `ansible-playbook -i hosts dotfiles.yml -v --ask-become-pass`. It is safe to re-run.
 
 ### ...as a regular command via CLI
 
