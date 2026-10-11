@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Ansible / ansible-lint local cache
+.ansible/
+*.retry
+
+# Python virtualenvs (excluded in .ansible-lint)
+.venv/
+venv/
+
+# Local tooling artifacts
+graft/
+package-lock.json
