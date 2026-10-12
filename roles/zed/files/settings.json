@@ -7,6 +7,7 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "disable_ai": true,
   "telemetry": {
     "diagnostics": false,
     "metrics": false
@@ -24,13 +25,8 @@
     "ansible": true
   },
   "file_types": {
-    "postgres": [
-      "*.sql"
-    ],
-    "yaml": [
-      "*.tftpl",
-      "*.example"
-    ],
+    "postgres": ["*.sql"],
+    "yaml": ["*.tftpl", "*.example"],
     // Replaces Sublime's ApplySyntax Ansible rules; globs from zed.dev/docs/languages/ansible
     "Ansible": [
       "**.ansible.yml",
@@ -58,6 +54,11 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "One Dark",
+    "dark": "One Dark"
   },
+  "title_bar": {
+    "show_onboarding_banner": false,
+    "show_user_picture": false,
+    "show_sign_in": false
+  }
 }
