@@ -96,7 +96,7 @@ fi
 alias hashes='echo "###############################"'
 
 # vscode
-alias code='/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron'
+alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 
 # ansible
 # make sure we add the ssh key to ssh-agent so that we have to enter the ssh key password only once
