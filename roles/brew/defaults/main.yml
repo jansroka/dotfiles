@@ -138,7 +138,15 @@ brew_cask_packages:
   - veracrypt
   - zoom
 
+# Only app-based extensions (.appex): macOS 15+ no longer loads .qlgenerator plugins.
+# Casks installed only for their Quick Look extension. Other apps in brew_cask_packages
+# bring their own (see brew_ql_extension_casks).
 brew_cask_ql_packages:
-  - qlmarkdown
+  - apparency # app bundles
   - quicklook-video
-  - suspicious-package
+  - suspicious-package # installer packages
+  - syntax-highlight # source code, JSON, extensionless text
+
+# Casks from brew_cask_packages whose bundled Quick Look extension the role enables.
+brew_ql_extension_casks:
+  - obsidian # Markdown preview

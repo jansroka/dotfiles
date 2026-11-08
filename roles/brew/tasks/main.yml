@@ -24,7 +24,34 @@
     name: "{{ item }}"
     state: latest
   loop: "{{ brew_cask_ql_packages }}"
-  tags: brew
+  tags: [brew, quicklook]
+
+# An app extension stays inactive until its app has launched, so a fresh install
+# previews nothing. `pluginkit -a` adds it and `-e use` enables it, without a launch.
+# Covers Quick Look extensions and media extensions (quicklook-video decodes via those);
+# other extensions in these apps (Shortcuts actions) are left alone.
+- name: Enable Quick Look and media extensions
+  ansible.builtin.shell: |
+    set -o pipefail
+    brew info --json=v2 --cask {{ (brew_cask_ql_packages + brew_ql_extension_casks) | map('quote') | join(' ') }} |
+      jq -r '.casks[].artifacts[] | .app? // empty | .[] | strings' |
+      while read -r app; do
+        find "/Applications/$app/Contents" -maxdepth 2 -name '*.appex' | while read -r ext; do
+          point=$(plutil -extract NSExtension.NSExtensionPointIdentifier raw "$ext/Contents/Info.plist" 2>/dev/null ||
+            plutil -extract EXAppExtensionAttributes.EXExtensionPointIdentifier raw "$ext/Contents/Info.plist" 2>/dev/null || true)
+          case "$point" in com.apple.quicklook.* | com.apple.mediaextension.*) ;; *) continue ;; esac
+          id=$(plutil -extract CFBundleIdentifier raw "$ext/Contents/Info.plist")
+          # Enabled extensions are listed with a leading "+".
+          if ! pluginkit -m -i "$id" | grep -q '^+'; then
+            pluginkit -a "$ext"
+            pluginkit -e use -i "$id"
+            echo "enabled $id"
+          fi
+        done
+      done
+  register: brew_ql_enable
+  changed_when: brew_ql_enable.stdout != ''
+  tags: [brew, quicklook]
 
 - name: Update brew itself
   community.general.homebrew:
