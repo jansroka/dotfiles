@@ -11,10 +11,6 @@
     - {key: "tilesize", type: "float", value: "{{ dock_icon_size }}"}
     # Show indicator lights for open applications in the Dock
     - {key: "show-process-indicators", type: "bool", value: "true"}
-    # Speed up Mission Control animations
-    - {key: "expose-animation-duration", type: "float", value: "0.1"}
-    # Don’t show Dashboard as a Space
-    - {key: "dashboard-in-overlay", type: "bool", value: "false"}
   notify:
     - Kill Dock
   tags: dock
