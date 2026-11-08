@@ -33,6 +33,14 @@ duti_default_apps_associations:
       # - .tar  # we can't use zip, it's protected by OSX
       - org.7-zip.7-zip-archive
 
+  # Simple Comic
+  - bundle_id: com.ToWatchList.SimpleComic
+    utis:
+      - .cb7
+      - .cbr
+      - .cbt
+      - .cbz
+
   # Preview
   - bundle_id: com.apple.Preview
     utis:
