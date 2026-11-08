@@ -83,6 +83,14 @@ time ansible-playbook maintenance.yml -v --ask-become-pass
 
 This runs different tasks than the `dotfiles.yml` playbook. It does stuff like spotlight DB rebuild, repair permissions, verify volume, etc.
 
+## How to check for drift
+
+``` shell
+scripts/drift.sh
+```
+
+Compares what is installed (brew formulae and casks, Mac App Store apps, `/Applications`) with the lists in `roles/brew` and `roles/mas`. It also flags renamed, deprecated, and disabled packages, and casks whose app was deleted. Read-only; exits 1 when it finds drift.
+
 ## How to make changes to this repo
 
 ### Pre-commit hooks
