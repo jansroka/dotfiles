@@ -71,7 +71,6 @@ brew_packages:
   - libpq # postgres requirement
   - nmap
   - postgresql@18
-  - unbound
 
   # --- System Utilities ---
   - duf # disk usage
@@ -100,7 +99,7 @@ brew_cask_packages:
   - thunderbird
 
   # --- Cloud & Infrastructure ---
-  - docker
+  - orbstack # provides docker CLI; replaces Docker Desktop
 
   # --- Productivity & Office ---
   - google-drive
@@ -124,8 +123,7 @@ brew_cask_packages:
   - arq # backup
   - authy
   - cyberduck
-  - dupeguru
-  - fujitsu-scansnap-home
+  - scansnap-home
   - git-credential-manager
   - hazel
   - little-snitch
@@ -136,18 +134,11 @@ brew_cask_packages:
   - superduper
   - tabula
   - teamviewer
-  - the-unarchiver
   - utm
   - veracrypt
   - zoom
 
 brew_cask_ql_packages:
-  - qlcolorcode
-  - qlimagesize
   - qlmarkdown
-  - qlprettypatch
-  - qlstephen
-  - qlvideo
-  - quicklook-csv
+  - quicklook-video
   - suspicious-package
-  - webpquicklook

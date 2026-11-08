@@ -24,13 +24,14 @@ duti_default_apps_associations:
       - .mp4
       - .mpeg
 
-  # The Unarchiver
-  - bundle_id: com.macpaw.site.theunarchiver
+  # Keka
+  - bundle_id: com.aone.keka
     utis:
       # - .zip  # we can't use zip, it's protected by OSX
-      - .rar
+      # .rar/.7z have no system UTI without The Unarchiver, so use the UTIs Keka declares.
+      - com.rarlab.rar-archive
       # - .tar  # we can't use zip, it's protected by OSX
-      - .7z
+      - org.7-zip.7-zip-archive
 
   # Preview
   - bundle_id: com.apple.Preview
