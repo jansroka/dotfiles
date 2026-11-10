@@ -10,5 +10,4 @@
 venv/
 
 # Local tooling artifacts
-graft/
 package-lock.json
