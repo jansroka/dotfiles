@@ -83,3 +83,10 @@ export PATH="${(j/:/)${(@u)${(s/:/)PATH}}}"
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+
+# Herdr: resume the Claude session a reboot killed in this pane (~/.claude/hooks/herdr-resume.sh).
+if [[ -n $HC_TERMINAL_ID && $SHLVL == 1 && -x ~/.claude/hooks/herdr-resume.sh ]]; then
+  _herdr_resume=$(~/.claude/hooks/herdr-resume.sh shell)
+  [[ -n $_herdr_resume ]] && eval "$_herdr_resume"
+  unset _herdr_resume
+fi
