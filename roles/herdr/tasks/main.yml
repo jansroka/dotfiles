@@ -1,0 +1,29 @@
+---
+# Herdr.app is installed from herdr.dev, not Homebrew (the `herdr` formula is
+# a different terminal-only tool), so this role only links config.
+# Files are linked one by one, not whole folders: ~/.config/herdr-app also
+# holds app state (view.json, data/, layouts/.state/), and Herdr rewrites
+# mods/<name>/gpui-kit.d.ts on every start.
+- name: Ensure Herdr config folders exist
+  ansible.builtin.file:
+    path: "/Users/jan/.config/herdr-app/{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - layouts
+    - mods/my-agents
+  tags: herdr
+
+- name: Symlink Herdr layouts and mods
+  ansible.builtin.file:
+    src: "/Users/jan/Code/Private/dotfiles/roles/herdr/files/{{ item }}"
+    dest: "/Users/jan/.config/herdr-app/{{ item }}"
+    state: link
+    force: true
+    follow: false
+  loop:
+    - layouts/my-layout.json
+    - mods/my-agents/main.js
+    - mods/my-agents/mod.json
+    - mods/my-agents/jsconfig.json
+  tags: herdr

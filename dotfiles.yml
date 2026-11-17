@@ -29,5 +29,7 @@
     #   tags: sublimetext
     - role: zed
       tags: zed
+    - role: herdr
+      tags: herdr
     - role: symlinks
       tags: symlinks
