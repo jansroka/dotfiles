@@ -27,3 +27,21 @@
     - mods/my-agents/mod.json
     - mods/my-agents/jsconfig.json
   tags: herdr
+
+# Herdr is installed by hand, so a fresh machine may not have it yet.
+- name: Find the Herdr app
+  ansible.builtin.stat:
+    path: /Applications/Herdr.app/Contents/MacOS/Herdr
+  register: herdr_app
+  tags: herdr
+
+# Fails the run on a broken mod instead of at Herdr's next start.
+- name: Check the Herdr mod loads
+  ansible.builtin.command:
+    argv:
+      - /Applications/Herdr.app/Contents/MacOS/Herdr
+      - check
+      - /Users/jan/.config/herdr-app/mods/my-agents
+  changed_when: false
+  when: herdr_app.stat.exists
+  tags: herdr
