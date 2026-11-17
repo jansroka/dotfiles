@@ -24,6 +24,7 @@ Previous versions of this repo (archived) can be found here:
 | duti | Sets default application associations for file types |
 | gem | Sets up and maintains default gems via rbenv |
 | hazel | Configures Hazel rules and settings |
+| herdr | Symlinks the custom Herdr layout and mod (the app itself is installed from herdr.dev) |
 | iterm | Configures iTerm2 preferences |
 | maintenance | Runs maintenance tasks (Spotlight rebuild, disk verification, DNS cache flush, LaunchServices rebuild) |
 | mas | Manages Mac App Store installations |
