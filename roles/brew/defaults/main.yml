@@ -129,7 +129,6 @@ brew_cask_packages:
   - little-snitch
   - maccy
   - macfuse
-  - maestral
   - netnewswire
   - superduper
   - tabula
