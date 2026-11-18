@@ -62,6 +62,12 @@ cat "$tmp/want_formulae" "$tmp/want_casks" | sort -u |
   join - "$tmp/renames" | awk '{print $1 " -> " $2}' >"$tmp/out"
 section "Listed under an old name (rename in $BREW_VARS)" "$tmp/out"
 
+# An installed old name is a leftover Caskroom/Cellar dir; `brew uninstall <old>` resolves
+# to the new name and would remove the app you keep.
+cat "$tmp/all_formulae" "$tmp/have_casks" | sort -u |
+  join - "$tmp/renames" | awk '{print $1 " -> " $2}' >"$tmp/out"
+section "Installed under an old name too (delete the old dir in \$(brew --prefix)/Caskroom or Cellar)" "$tmp/out"
+
 # Formulae only when installed on request: a deprecated dependency is not yours to act on.
 jq -r '(.formulae[] | select(any(.installed[]; .installed_on_request)) | {n: .name, d: .deprecated, x: .disabled, r: (.disable_reason // .deprecation_reason)}),
        (.casks[] | {n: .token, d: .deprecated, x: .disabled, r: (.disable_reason // .deprecation_reason)})
